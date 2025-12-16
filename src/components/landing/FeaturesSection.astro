@@ -1,0 +1,66 @@
+---
+/**
+ * FeaturesSection - Sekcja prezentująca główne korzyści i funkcje produktu
+ * Wyświetla grid kart z korzyściami
+ */
+import FeatureCard from "./FeatureCard.astro";
+
+const features = [
+  {
+    icon: "sparkles" as const,
+    title: "Generowanie fiszek z AI",
+    description:
+      "Wklej dowolny tekst, a sztuczna inteligencja automatycznie wygeneruje dla Ciebie zestaw fiszek. Oszczędź godziny ręcznego przepisywania.",
+  },
+  {
+    icon: "brain" as const,
+    title: "Algorytm Spaced Repetition",
+    description:
+      "Ucz się w optymalnych odstępach czasu dzięki algorytmowi SM-2. System automatycznie dobiera, kiedy powinieneś powtórzyć każdą fiszkę.",
+  },
+  {
+    icon: "clock" as const,
+    title: "Nauka w kilka minut dziennie",
+    description:
+      "Krótkie, regularne sesje nauki są skuteczniejsze niż wielogodzinne maratony. Ucz się efektywnie, poświęcając tylko 10-15 minut dziennie.",
+  },
+  {
+    icon: "shield" as const,
+    title: "Bezpieczeństwo danych",
+    description:
+      "Twoje dane są bezpieczne i przechowywane zgodnie z RODO. Masz pełną kontrolę nad swoimi fiszkami i możesz je eksportować w dowolnym momencie.",
+  },
+];
+---
+
+<section aria-labelledby="features-heading" class="bg-muted/30 py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Nagłówek sekcji -->
+    <div class="mx-auto max-w-2xl text-center">
+      <h2
+        id="features-heading"
+        class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+      >
+        Dlaczego 10x-cards?
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground">
+        Połączenie sztucznej inteligencji z naukowo udowodnionymi metodami nauki
+        sprawia, że zapamiętywanie jest szybsze i trwalsze.
+      </p>
+    </div>
+
+    <!-- Grid kart -->
+    <div class="mx-auto mt-16 grid max-w-5xl gap-6 sm:grid-cols-2 lg:gap-8">
+      {
+        features.map((feature) => (
+          <FeatureCard
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+

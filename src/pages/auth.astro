@@ -1,0 +1,26 @@
+---
+import PublicLayout from "@/layouts/PublicLayout.astro";
+import { AuthCard } from "@/components/auth/AuthCard";
+
+// Sprawdź czy użytkownik jest zalogowany
+const {
+  data: { user },
+} = await Astro.locals.supabase.auth.getUser();
+
+// Redirect zalogowanych użytkowników
+if (user) {
+  return Astro.redirect("/generate");
+}
+
+// Pobierz parametry z query string
+const returnUrl = Astro.url.searchParams.get("returnUrl") || "/generate";
+const tabParam = Astro.url.searchParams.get("tab");
+const defaultTab = tabParam === "register" ? "register" : "login";
+---
+
+<PublicLayout title="Zaloguj się - 10x-cards" description="Zaloguj się lub utwórz konto, aby korzystać z 10x-cards">
+  <div class="flex min-h-[calc(100vh-8rem)] items-center justify-center p-4">
+    <AuthCard client:load defaultTab={defaultTab} returnUrl={returnUrl} />
+  </div>
+</PublicLayout>
+

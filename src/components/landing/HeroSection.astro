@@ -1,0 +1,196 @@
+---
+/**
+ * HeroSection - Sekcja powitalna z głównym przekazem wartości produktu
+ * Pierwszy element widziany przez użytkownika, komunikuje wartość produktu
+ * Dla zalogowanych użytkowników pokazuje inne CTA
+ */
+
+// Pobierz informację o zalogowanym użytkowniku
+const {
+  data: { user },
+} = await Astro.locals.supabase.auth.getUser();
+
+const isAuthenticated = !!user;
+---
+
+<section
+  aria-labelledby="hero-heading"
+  class="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20"
+>
+  <!-- Dekoracyjne tło -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+      <div class="h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl"></div>
+    </div>
+    <div class="absolute right-0 top-1/2 -translate-y-1/2">
+      <div class="h-[400px] w-[400px] rounded-full bg-primary/3 blur-3xl"></div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 text-center">
+      <!-- Badge -->
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur-sm">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-4 text-primary"
+          aria-hidden="true"
+        >
+          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+        </svg>
+        <span>Wspierane przez AI</span>
+      </div>
+
+      <!-- Główny nagłówek -->
+      <h1
+        id="hero-heading"
+        class="max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+      >
+        Twórz fiszki
+        <span class="relative whitespace-nowrap">
+          <span class="relative bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
+            10x szybciej
+          </span>
+        </span>
+        <br class="hidden sm:block" />
+        z pomocą AI
+      </h1>
+
+      <!-- Podtytuł -->
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+        Przekształć dowolny tekst w gotowe fiszki edukacyjne w kilka sekund.
+        Ucz się efektywniej dzięki algorytmowi spaced repetition i osiągaj lepsze wyniki.
+      </p>
+
+      <!-- Przyciski CTA -->
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-6">
+        {isAuthenticated ? (
+          <>
+            <a
+              href="/generate"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <span>Generuj fiszki</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-5"
+                aria-hidden="true"
+              >
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+              </svg>
+            </a>
+            <a
+              href="/flashcards"
+              class="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-8 py-4 text-base font-semibold text-foreground shadow-sm transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <span>Moje fiszki</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-5"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </>
+        ) : (
+          <a
+            href="/auth"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <span>Zacznij za darmo</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        )}
+      </div>
+
+      <!-- Statystyki / Social proof -->
+      <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
+        <div class="flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="size-5 text-primary"
+            aria-hidden="true"
+          >
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <span>Darmowe konto</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="size-5 text-primary"
+            aria-hidden="true"
+          >
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <span>Bez karty kredytowej</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="size-5 text-primary"
+            aria-hidden="true"
+          >
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <span>Gotowe w minutę</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

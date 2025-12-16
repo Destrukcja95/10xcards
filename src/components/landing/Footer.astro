@@ -1,0 +1,40 @@
+---
+/**
+ * Footer - Stopka strony z podstawowymi informacjami
+ * Wyświetla logo, prawa autorskie i opcjonalne linki
+ */
+const currentYear = new Date().getFullYear();
+---
+
+<footer role="contentinfo" class="border-t border-border/40 bg-muted/30">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-4 py-8 md:flex-row">
+      <!-- Logo i nazwa -->
+      <div class="flex items-center gap-2 text-muted-foreground">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-5"
+          aria-hidden="true"
+        >
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M7 7h10" />
+          <path d="M7 12h10" />
+          <path d="M7 17h10" />
+        </svg>
+        <span class="font-medium">10x-cards</span>
+      </div>
+
+      <!-- Prawa autorskie -->
+      <p class="text-sm text-muted-foreground">
+        © {currentYear} 10x-cards. Wszelkie prawa zastrzeżone.
+      </p>
+    </div>
+  </div>
+</footer>
+

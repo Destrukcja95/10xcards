@@ -1,0 +1,36 @@
+---
+import Layout from "./Layout.astro";
+import PublicNav from "@/components/landing/PublicNav.astro";
+import Footer from "@/components/landing/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "10x-cards - Twórz fiszki z AI",
+  description = "Twórz fiszki edukacyjne 10x szybciej z pomocą sztucznej inteligencji. Ucz się efektywniej dzięki algorytmowi spaced repetition.",
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </Fragment>
+
+  <div class="min-h-screen flex flex-col bg-background">
+    <header class="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <PublicNav />
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
+

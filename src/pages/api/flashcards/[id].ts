@@ -217,3 +217,83 @@ export const PUT: APIRoute = async ({ locals, params, request }) => {
     });
   }
 };
+
+/**
+ * DELETE /api/flashcards/:id
+ * Usuwa fiszkę użytkownika
+ *
+ * Path params:
+ * - id: UUID - unikalny identyfikator fiszki
+ *
+ * Responses:
+ * - 204: No Content - fiszka została usunięta
+ * - 400: VALIDATION_ERROR - nieprawidłowy format UUID
+ * - 401: UNAUTHORIZED - brak tokenu uwierzytelniającego
+ * - 404: NOT_FOUND - fiszka nie istnieje lub należy do innego użytkownika
+ * - 500: INTERNAL_ERROR - nieoczekiwany błąd serwera
+ */
+export const DELETE: APIRoute = async ({ locals, params }) => {
+  const user = locals.user;
+
+  if (!user) {
+    const errorResponse: ErrorDTO = {
+      error: {
+        code: 'UNAUTHORIZED',
+        message: 'Missing or invalid authentication token',
+      },
+    };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Walidacja parametru id (UUID)
+  const idValidation = flashcardIdParamSchema.safeParse({ id: params.id });
+
+  if (!idValidation.success) {
+    const errorResponse: ErrorDTO = {
+      error: {
+        code: 'VALIDATION_ERROR',
+        message: 'Invalid flashcard ID format',
+      },
+    };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  try {
+    const service = new FlashcardsService(locals.supabase);
+    const deleted = await service.deleteFlashcard(user.id, idValidation.data.id);
+
+    if (!deleted) {
+      const errorResponse: ErrorDTO = {
+        error: {
+          code: 'NOT_FOUND',
+          message: 'Flashcard not found',
+        },
+      };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(null, { status: 204 });
+  } catch (error) {
+    console.error('[DELETE /api/flashcards/:id] Error:', error);
+
+    const errorResponse: ErrorDTO = {
+      error: {
+        code: 'INTERNAL_ERROR',
+        message: 'An unexpected error occurred',
+      },
+    };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
