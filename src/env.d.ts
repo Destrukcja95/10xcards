@@ -1,4 +1,5 @@
 /// <reference types="astro/client" />
+/// <reference types="vitest/globals" />
 
 import type { User } from '@supabase/supabase-js';
 
