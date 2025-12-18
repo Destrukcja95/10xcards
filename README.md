@@ -1,177 +1,111 @@
-# Supabase CLI
+# 10x-cards
 
-[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=main)](https://coveralls.io/github/supabase/cli?branch=main) [![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/supabase-cli/setup-cli/master?style=flat-square&label=Bitbucket%20Canary)](https://bitbucket.org/supabase-cli/setup-cli/pipelines) [![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/sweatybridge%2Fsetup-cli?label=Gitlab%20Canary)
-](https://gitlab.com/sweatybridge/setup-cli/-/pipelines)
+Platforma do tworzenia i zarządzania fiszkami edukacyjnymi z wykorzystaniem sztucznej inteligencji.
 
-[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
+## Opis projektu
 
-This repository contains all the functionality for Supabase CLI.
+10x-cards to aplikacja webowa umożliwiająca:
+- Automatyczne generowanie fiszek z tekstu źródłowego przy pomocy AI
+- Ręczne tworzenie i zarządzanie fiszkami
+- Naukę z wykorzystaniem algorytmu powtórek SM-2
+- Śledzenie postępów i statystyk nauki
 
-- [x] Running Supabase locally
-- [x] Managing database migrations
-- [x] Creating and deploying Supabase Functions
-- [x] Generating types directly from your database schema
-- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
+## Stos technologiczny
 
-## Getting started
+### Frontend
+- **Astro 5** - framework do budowy szybkich stron z minimalną ilością JavaScript
+- **React 19** - interaktywne komponenty
+- **TypeScript 5** - statyczne typowanie
+- **Tailwind 4** - stylowanie
+- **Shadcn/ui** - biblioteka komponentów UI
 
-### Install the CLI
+### Backend
+- **Supabase** - Backend-as-a-Service z bazą PostgreSQL i wbudowaną autentykacją
 
-Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
+### AI
+- **OpenRouter.ai** - dostęp do modeli AI (OpenAI, Anthropic, Google i inne)
 
-```bash
-npm i supabase --save-dev
-```
+### Testowanie
+- **Vitest** - testy jednostkowe
+- **React Testing Library** - testy komponentów React
+- **MSW (Mock Service Worker)** - mockowanie API
+- **Playwright** - testy End-to-End
+- **c8/istanbul** - raportowanie pokrycia kodu
 
-When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
-
-```
-NODE_OPTIONS=--no-experimental-fetch yarn add supabase
-```
-
-> **Note**
-For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
-
-<details>
-  <summary><b>macOS</b></summary>
-
-  Available via [Homebrew](https://brew.sh). To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To install the beta release channel:
-  
-  ```sh
-  brew install supabase/tap/supabase-beta
-  brew link --overwrite supabase-beta
-  ```
-  
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Windows</b></summary>
-
-  Available via [Scoop](https://scoop.sh). To install:
-
-  ```powershell
-  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
-  scoop install supabase
-  ```
-
-  To upgrade:
-
-  ```powershell
-  scoop update supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Linux</b></summary>
-
-  Available via [Homebrew](https://brew.sh) and Linux packages.
-
-  #### via Homebrew
-
-  To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-
-  #### via Linux packages
-
-  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
-
-  ```sh
-  sudo apk add --allow-untrusted <...>.apk
-  ```
-
-  ```sh
-  sudo dpkg -i <...>.deb
-  ```
-
-  ```sh
-  sudo rpm -i <...>.rpm
-  ```
-
-  ```sh
-  sudo pacman -U <...>.pkg.tar.zst
-  ```
-</details>
-
-<details>
-  <summary><b>Other Platforms</b></summary>
-
-  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
-
-  ```sh
-  go install github.com/supabase/cli@latest
-  ```
-
-  Add a symlink to the binary in `$PATH` for easier access:
-
-  ```sh
-  ln -s "$(go env GOPATH)/bin/cli" /usr/bin/supabase
-  ```
-
-  This works on other non-standard Linux distros.
-</details>
-
-<details>
-  <summary><b>Community Maintained Packages</b></summary>
-
-  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
-  To install in your working directory:
-
-  ```bash
-  pkgx install supabase
-  ```
-
-  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
-</details>
-
-### Run the CLI
+## Instalacja
 
 ```bash
-supabase bootstrap
+# Instalacja zależności
+npm install
+
+# Uruchomienie w trybie deweloperskim
+npm run dev
+
+# Budowanie produkcyjne
+npm run build
 ```
 
-Or using npx:
+## Testowanie
 
 ```bash
-npx supabase bootstrap
+# Testy jednostkowe
+npm run test
+
+# Testy jednostkowe w trybie watch
+npm run test:watch
+
+# Testy z pokryciem kodu
+npm run test:coverage
+
+# Testy E2E
+npm run test:e2e
+
+# Testy E2E w trybie headed (widoczna przeglądarka)
+npm run test:e2e:headed
+
+# Testy E2E dla konkretnej przeglądarki
+npm run test:e2e -- --project=chromium
+npm run test:e2e -- --project=firefox
+
+# Wszystkie testy (CI)
+npm run test:ci
 ```
 
-The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
+### Struktura testów
 
-## Docs
-
-Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
-
-## Breaking changes
-
-We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
-
-However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
-
-## Developing
-
-To run from source:
-
-```sh
-# Go >= 1.22
-go run . help
 ```
+tests/
+├── unit/                    # Testy jednostkowe
+│   ├── services/            # Testy serwisów
+│   ├── schemas/             # Testy schematów walidacji Zod
+│   ├── algorithms/          # Testy algorytmów (SM-2)
+│   └── components/          # Testy komponentów React
+├── e2e/                     # Testy End-to-End
+├── fixtures/                # Dane testowe
+└── mocks/                   # Mocki (Supabase, OpenRouter)
+```
+
+## Zmienne środowiskowe
+
+```bash
+SUPABASE_URL=<url-projektu-supabase>
+SUPABASE_KEY=<klucz-anon-supabase>
+OPENROUTER_API_KEY=<klucz-api-openrouter>
+```
+
+## Dokumentacja
+
+Szczegółowa dokumentacja projektu znajduje się w katalogu `.ai/`:
+- `prd.md` - wymagania produktowe
+- `api-plan.md` - specyfikacja API
+- `db-plan.md` - schemat bazy danych
+- `tech-stack.md` - stos technologiczny
+- `test-plan.md` - plan testów
+
+## CI/CD
+
+Projekt wykorzystuje GitHub Actions do automatyzacji CI/CD oraz DigitalOcean do hostowania aplikacji.
+
+## Licencja
+
+Projekt prywatny.
