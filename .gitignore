@@ -29,3 +29,6 @@ test-results/
 playwright-report/
 playwright/.cache/
 screenshots/
+
+# E2E test auth state
+e2e/.auth/

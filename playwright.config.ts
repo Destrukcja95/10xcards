@@ -1,4 +1,14 @@
 import { defineConfig, devices } from "@playwright/test";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+/**
+ * Ścieżka do pliku z zapisanym stanem autentykacji
+ */
+const AUTH_FILE = join(__dirname, "e2e", ".auth", "user.json");
 
 /**
  * Playwright configuration for E2E tests
@@ -54,11 +64,25 @@ export default defineConfig({
     navigationTimeout: 30000,
   },
 
-  // Configure projects - Only Chromium as per guidelines
+  // Configure projects with setup dependency
   projects: [
+    // Setup project - runs first to create/authenticate test user
+    {
+      name: "setup",
+      testMatch: /auth\.setup\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+
+    // Main tests - depend on setup, use saved auth state
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        // Use saved authentication state
+        storageState: AUTH_FILE,
+      },
+      dependencies: ["setup"],
+      testIgnore: /auth\.setup\.ts/,
     },
   ],
 
@@ -85,4 +109,3 @@ export default defineConfig({
   // Output directory for test artifacts
   outputDir: "test-results",
 });
-
