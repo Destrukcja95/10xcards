@@ -30,10 +30,7 @@ export function GenerationHistoryPagination({
   }
 
   return (
-    <nav
-      className="mt-6 flex items-center justify-center gap-4"
-      aria-label="Paginacja historii generowania"
-    >
+    <nav className="mt-6 flex items-center justify-center gap-4" aria-label="Paginacja historii generowania">
       <Button
         variant="outline"
         size="sm"
@@ -59,10 +56,7 @@ export function GenerationHistoryPagination({
         Poprzednia
       </Button>
 
-      <span
-        className="text-sm text-muted-foreground tabular-nums"
-        aria-current="page"
-      >
+      <span className="text-sm text-muted-foreground tabular-nums" aria-current="page">
         Strona {page} z {total_pages}
       </span>
 
@@ -93,4 +87,3 @@ export function GenerationHistoryPagination({
     </nav>
   );
 }
-

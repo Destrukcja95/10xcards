@@ -13,11 +13,7 @@ const {
 const isAuthenticated = !!user;
 ---
 
-<nav
-  role="navigation"
-  aria-label="Główna nawigacja"
-  class="container mx-auto px-4 sm:px-6 lg:px-8"
->
+<nav role="navigation" aria-label="Główna nawigacja" class="container mx-auto px-4 sm:px-6 lg:px-8">
   <div class="flex h-16 items-center justify-between">
     <!-- Logo -->
     <a
@@ -35,47 +31,39 @@ const isAuthenticated = !!user;
         class="size-7 text-primary transition-transform group-hover:rotate-12"
         aria-hidden="true"
       >
-        <rect width="18" height="18" x="3" y="3" rx="2" />
-        <path d="M7 7h10" />
-        <path d="M7 12h10" />
-        <path d="M7 17h10" />
+        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+        <path d="M7 7h10"></path>
+        <path d="M7 12h10"></path>
+        <path d="M7 17h10"></path>
       </svg>
       <span>10x-cards</span>
     </a>
 
     <!-- Nawigacja -->
-    {isAuthenticated ? (
-      <div class="flex items-center gap-6">
+    {
+      isAuthenticated ? (
+        <div class="flex items-center gap-6">
+          <a href="/generate" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Generuj fiszki
+          </a>
+          <a href="/flashcards" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Moje fiszki
+          </a>
+          <span class="text-sm text-muted-foreground">{user.email}</span>
+          <form action="/api/auth/logout" method="POST">
+            <button type="submit" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Wyloguj się
+            </button>
+          </form>
+        </div>
+      ) : (
         <a
-          href="/generate"
-          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href="/auth"
+          class="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          Generuj fiszki
+          Zaloguj się
         </a>
-        <a
-          href="/flashcards"
-          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Moje fiszki
-        </a>
-        <span class="text-sm text-muted-foreground">{user.email}</span>
-        <form action="/api/auth/logout" method="POST">
-          <button
-            type="submit"
-            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Wyloguj się
-          </button>
-        </form>
-      </div>
-    ) : (
-      <a
-        href="/auth"
-        class="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        Zaloguj się
-      </a>
-    )}
+      )
+    }
   </div>
 </nav>
-

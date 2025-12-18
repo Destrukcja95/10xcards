@@ -108,8 +108,12 @@ export class ProfilePage extends BasePage {
     await this.page.waitForLoadState("domcontentloaded");
     // Wait for stats to load
     await Promise.race([
-      this.statsSection.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
-      this.profileHeader.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
+      this.statsSection.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
+      this.profileHeader.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
     ]);
   }
 
@@ -126,13 +130,13 @@ export class ProfilePage extends BasePage {
     } = {};
 
     if (await this.totalFlashcardsCount.isVisible()) {
-      stats.totalFlashcards = await this.totalFlashcardsCount.textContent() ?? undefined;
+      stats.totalFlashcards = (await this.totalFlashcardsCount.textContent()) ?? undefined;
     }
     if (await this.totalGeneratedCount.isVisible()) {
-      stats.totalGenerated = await this.totalGeneratedCount.textContent() ?? undefined;
+      stats.totalGenerated = (await this.totalGeneratedCount.textContent()) ?? undefined;
     }
     if (await this.acceptanceRate.isVisible()) {
-      stats.acceptanceRate = await this.acceptanceRate.textContent() ?? undefined;
+      stats.acceptanceRate = (await this.acceptanceRate.textContent()) ?? undefined;
     }
 
     return stats;
@@ -176,7 +180,7 @@ export class ProfilePage extends BasePage {
     await this.deleteDialog.waitFor({ state: "hidden" });
   }
 
-  async deleteAccount(confirmText: string = "usuń"): Promise<void> {
+  async deleteAccount(confirmText = "usuń"): Promise<void> {
     await this.openDeleteDialog();
     await this.fillDeleteConfirmation(confirmText);
     await this.confirmDeleteAccount();
@@ -207,4 +211,3 @@ export class ProfilePage extends BasePage {
     return this.historySkeleton.isVisible();
   }
 }
-

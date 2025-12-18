@@ -1,6 +1,6 @@
-import type { SupabaseClient } from '../../db/supabase.client';
-import type { FlashcardDTO, FlashcardsListResponseDTO } from '../../types';
-import type { CreateFlashcardsInput, GetFlashcardsQuery, UpdateFlashcardInput } from '../schemas/flashcards.schema';
+import type { SupabaseClient } from "../../db/supabase.client";
+import type { FlashcardDTO, FlashcardsListResponseDTO } from "../../types";
+import type { CreateFlashcardsInput, GetFlashcardsQuery, UpdateFlashcardInput } from "../schemas/flashcards.schema";
 
 /**
  * Serwis obsługujący operacje na fiszkach
@@ -20,9 +20,9 @@ export class FlashcardsService {
 
     // Pobranie total count
     const { count, error: countError } = await this.supabase
-      .from('flashcards')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', userId);
+      .from("flashcards")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId);
 
     if (countError) {
       throw new Error(`Database error: ${countError.message}`);
@@ -33,12 +33,12 @@ export class FlashcardsService {
 
     // Pobranie danych z paginacją - jawna selekcja pól (bez user_id)
     const { data, error } = await this.supabase
-      .from('flashcards')
+      .from("flashcards")
       .select(
-        'id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at'
+        "id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at"
       )
-      .eq('user_id', userId)
-      .order(sort, { ascending: order === 'asc' })
+      .eq("user_id", userId)
+      .order(sort, { ascending: order === "asc" })
       .range(offset, offset + limit - 1);
 
     if (error) {
@@ -75,10 +75,10 @@ export class FlashcardsService {
     }));
 
     const { data, error } = await this.supabase
-      .from('flashcards')
+      .from("flashcards")
       .insert(flashcardsToInsert)
       .select(
-        'id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at'
+        "id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at"
       );
 
     if (error) {
@@ -96,17 +96,17 @@ export class FlashcardsService {
    */
   async getFlashcardById(userId: string, flashcardId: string): Promise<FlashcardDTO | null> {
     const { data, error } = await this.supabase
-      .from('flashcards')
+      .from("flashcards")
       .select(
-        'id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at'
+        "id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at"
       )
-      .eq('id', flashcardId)
-      .eq('user_id', userId)
+      .eq("id", flashcardId)
+      .eq("user_id", userId)
       .single();
 
     if (error) {
       // PGRST116 = No rows found - zwracamy null zamiast rzucać błąd
-      if (error.code === 'PGRST116') {
+      if (error.code === "PGRST116") {
         return null;
       }
       throw new Error(`Database error: ${error.message}`);
@@ -123,10 +123,10 @@ export class FlashcardsService {
    */
   async deleteFlashcard(userId: string, flashcardId: string): Promise<boolean> {
     const { error, count } = await this.supabase
-      .from('flashcards')
-      .delete({ count: 'exact' })
-      .eq('id', flashcardId)
-      .eq('user_id', userId);
+      .from("flashcards")
+      .delete({ count: "exact" })
+      .eq("id", flashcardId)
+      .eq("user_id", userId);
 
     if (error) {
       throw new Error(`Database error: ${error.message}`);
@@ -148,18 +148,18 @@ export class FlashcardsService {
     input: UpdateFlashcardInput
   ): Promise<FlashcardDTO | null> {
     const { data, error } = await this.supabase
-      .from('flashcards')
+      .from("flashcards")
       .update(input)
-      .eq('id', flashcardId)
-      .eq('user_id', userId)
+      .eq("id", flashcardId)
+      .eq("user_id", userId)
       .select(
-        'id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at'
+        "id, front, back, source, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at, created_at, updated_at"
       )
       .single();
 
     if (error) {
       // PGRST116 = No rows found - zwracamy null zamiast rzucać błąd
-      if (error.code === 'PGRST116') {
+      if (error.code === "PGRST116") {
         return null;
       }
       throw new Error(`Database error: ${error.message}`);
@@ -168,4 +168,3 @@ export class FlashcardsService {
     return data;
   }
 }
-

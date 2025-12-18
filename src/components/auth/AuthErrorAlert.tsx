@@ -41,4 +41,3 @@ export function AuthErrorAlert({ error, onDismiss }: AuthErrorAlertProps) {
     </Alert>
   );
 }
-

@@ -1,11 +1,7 @@
 import { useReducer, useCallback, useEffect, useMemo } from "react";
 import { profileViewReducer, initialState } from "./profileViewReducer";
 import type { ProfileStatsDTO } from "../types";
-import type {
-  FlashcardsListResponseDTO,
-  GenerationSessionsListResponseDTO,
-  FlashcardDTO,
-} from "@/types";
+import type { FlashcardsListResponseDTO, GenerationSessionsListResponseDTO, FlashcardDTO } from "@/types";
 
 const MAX_PAGE_SIZE = 100;
 
@@ -18,9 +14,7 @@ async function fetchAllFlashcards(): Promise<FlashcardDTO[]> {
   let hasMore = true;
 
   while (hasMore) {
-    const response = await fetch(
-      `/api/flashcards?page=${currentPage}&limit=${MAX_PAGE_SIZE}`
-    );
+    const response = await fetch(`/api/flashcards?page=${currentPage}&limit=${MAX_PAGE_SIZE}`);
 
     if (!response.ok) {
       if (response.status === 401) {
@@ -47,17 +41,10 @@ async function fetchAllFlashcards(): Promise<FlashcardDTO[]> {
 /**
  * Oblicza statystyki na podstawie listy fiszek
  */
-function calculateStats(
-  flashcards: FlashcardDTO[],
-  acceptanceRate: number
-): ProfileStatsDTO {
+function calculateStats(flashcards: FlashcardDTO[], acceptanceRate: number): ProfileStatsDTO {
   const totalFlashcards = flashcards.length;
-  const aiFlashcards = flashcards.filter(
-    (fc) => fc.source === "ai_generated"
-  ).length;
-  const manualFlashcards = flashcards.filter(
-    (fc) => fc.source === "manual"
-  ).length;
+  const aiFlashcards = flashcards.filter((fc) => fc.source === "ai_generated").length;
+  const manualFlashcards = flashcards.filter((fc) => fc.source === "manual").length;
 
   return {
     totalFlashcards,
@@ -89,18 +76,14 @@ export function useProfileView() {
 
       let acceptanceRate = 0;
       if (sessionsResponse.ok) {
-        const sessionsData: GenerationSessionsListResponseDTO =
-          await sessionsResponse.json();
+        const sessionsData: GenerationSessionsListResponseDTO = await sessionsResponse.json();
         acceptanceRate = sessionsData.summary.acceptance_rate;
       }
 
       const stats = calculateStats(allFlashcards, acceptanceRate);
       dispatch({ type: "FETCH_STATS_SUCCESS", payload: stats });
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Wystąpił błąd podczas pobierania statystyk";
+      const message = error instanceof Error ? error.message : "Wystąpił błąd podczas pobierania statystyk";
       dispatch({ type: "FETCH_STATS_ERROR", payload: message });
     }
   }, []);
@@ -112,9 +95,7 @@ export function useProfileView() {
     dispatch({ type: "FETCH_SESSIONS_START" });
 
     try {
-      const response = await fetch(
-        `/api/generation-sessions?page=${state.sessionsPage}&limit=10`
-      );
+      const response = await fetch(`/api/generation-sessions?page=${state.sessionsPage}&limit=10`);
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -134,10 +115,7 @@ export function useProfileView() {
         },
       });
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Wystąpił błąd podczas pobierania historii";
+      const message = error instanceof Error ? error.message : "Wystąpił błąd podczas pobierania historii";
       dispatch({ type: "FETCH_SESSIONS_ERROR", payload: message });
     }
   }, [state.sessionsPage]);
@@ -181,9 +159,7 @@ export function useProfileView() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        throw new Error(
-          errorData?.error?.message || "Nie udało się usunąć konta"
-        );
+        throw new Error(errorData?.error?.message || "Nie udało się usunąć konta");
       }
 
       dispatch({ type: "DELETE_SUCCESS" });
@@ -191,10 +167,7 @@ export function useProfileView() {
       // Przekierowanie do strony głównej po usunięciu konta
       window.location.href = "/";
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Wystąpił błąd podczas usuwania konta";
+      const message = error instanceof Error ? error.message : "Wystąpił błąd podczas usuwania konta";
       dispatch({ type: "DELETE_ERROR", payload: message });
     }
   }, []);
@@ -227,10 +200,7 @@ export function useProfileView() {
   // ========================================
   // COMPUTED VALUES
   // ========================================
-  const isConfirmValid = useMemo(
-    () => state.deleteConfirmInput === "USUŃ",
-    [state.deleteConfirmInput]
-  );
+  const isConfirmValid = useMemo(() => state.deleteConfirmInput === "USUŃ", [state.deleteConfirmInput]);
 
   const hasNoHistory = useMemo(
     () => !state.sessionsLoading && state.sessions.length === 0,
@@ -257,4 +227,3 @@ export function useProfileView() {
     },
   };
 }
-

@@ -9,20 +9,11 @@ interface SaveProposalsButtonProps {
 /**
  * SaveProposalsButton - przycisk zapisu zaakceptowanych fiszek z licznikiem
  */
-export function SaveProposalsButton({
-  acceptedCount,
-  onSave,
-  isLoading,
-}: SaveProposalsButtonProps) {
+export function SaveProposalsButton({ acceptedCount, onSave, isLoading }: SaveProposalsButtonProps) {
   const canSave = acceptedCount > 0 && !isLoading;
 
   return (
-    <Button
-      size="lg"
-      onClick={onSave}
-      disabled={!canSave}
-      className="min-w-[200px]"
-    >
+    <Button size="lg" onClick={onSave} disabled={!canSave} className="min-w-[200px]">
       {isLoading ? (
         <>
           <LoadingSpinner />
@@ -58,14 +49,7 @@ function SaveIcon() {
 function LoadingSpinner() {
   return (
     <svg className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path
         className="opacity-75"
         fill="currentColor"
@@ -74,4 +58,3 @@ function LoadingSpinner() {
     </svg>
   );
 }
-

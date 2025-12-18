@@ -9,11 +9,7 @@ interface BulkActionsProps {
 /**
  * BulkActions - przyciski do masowych akcji na wszystkich propozycjach w stanie pending
  */
-export function BulkActions({
-  onAcceptAll,
-  onRejectAll,
-  pendingCount,
-}: BulkActionsProps) {
+export function BulkActions({ onAcceptAll, onRejectAll, pendingCount }: BulkActionsProps) {
   const hasNoPending = pendingCount === 0;
 
   return (
@@ -35,20 +31,11 @@ export function BulkActions({
       </div>
 
       <div className="flex gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onRejectAll}
-          disabled={hasNoPending}
-        >
+        <Button variant="outline" size="sm" onClick={onRejectAll} disabled={hasNoPending}>
           <XIcon />
           Odrzuć wszystkie
         </Button>
-        <Button
-          size="sm"
-          onClick={onAcceptAll}
-          disabled={hasNoPending}
-        >
+        <Button size="sm" onClick={onAcceptAll} disabled={hasNoPending}>
           <CheckIcon />
           Akceptuj wszystkie
         </Button>
@@ -72,4 +59,3 @@ function XIcon() {
     </svg>
   );
 }
-

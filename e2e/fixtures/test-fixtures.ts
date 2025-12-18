@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { test as base, type BrowserContext, type Page } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
 import { AuthPage } from "../pages/AuthPage";

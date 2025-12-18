@@ -46,7 +46,7 @@ export function useGenerateView() {
 
       const data: GenerationResponseDTO = await response.json();
       dispatch({ type: "GENERATION_SUCCESS", payload: data });
-    } catch (error) {
+    } catch {
       dispatch({
         type: "GENERATION_ERROR",
         payload: "Wystąpił nieoczekiwany błąd. Sprawdź połączenie z internetem.",
@@ -116,7 +116,7 @@ export function useGenerateView() {
       }
 
       dispatch({ type: "SAVE_SUCCESS", payload: accepted.length });
-    } catch (error) {
+    } catch {
       dispatch({
         type: "SAVE_ERROR",
         payload: "Nie udało się zapisać fiszek. Spróbuj ponownie.",
@@ -134,20 +134,11 @@ export function useGenerateView() {
 
   // === COMPUTED VALUES ===
 
-  const acceptedCount = useMemo(
-    () => state.proposals.filter((p) => p.status === "accepted").length,
-    [state.proposals]
-  );
+  const acceptedCount = useMemo(() => state.proposals.filter((p) => p.status === "accepted").length, [state.proposals]);
 
-  const pendingCount = useMemo(
-    () => state.proposals.filter((p) => p.status === "pending").length,
-    [state.proposals]
-  );
+  const pendingCount = useMemo(() => state.proposals.filter((p) => p.status === "pending").length, [state.proposals]);
 
-  const rejectedCount = useMemo(
-    () => state.proposals.filter((p) => p.status === "rejected").length,
-    [state.proposals]
-  );
+  const rejectedCount = useMemo(() => state.proposals.filter((p) => p.status === "rejected").length, [state.proposals]);
 
   const hasProposals = state.proposals.length > 0;
 
@@ -174,4 +165,3 @@ export function useGenerateView() {
     },
   };
 }
-

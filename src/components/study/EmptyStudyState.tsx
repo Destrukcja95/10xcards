@@ -30,9 +30,7 @@ export function EmptyStudyState() {
       </div>
 
       {/* Tekst */}
-      <h2 className="mb-2 text-xl font-semibold text-foreground">
-        Świetna robota!
-      </h2>
+      <h2 className="mb-2 text-xl font-semibold text-foreground">Świetna robota!</h2>
       <p className="mb-8 max-w-sm text-muted-foreground">
         Nie masz fiszek do powtórki. Wróć później lub dodaj nowe fiszki.
       </p>
@@ -49,4 +47,3 @@ export function EmptyStudyState() {
     </div>
   );
 }
-

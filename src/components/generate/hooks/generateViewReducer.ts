@@ -21,10 +21,7 @@ export const initialState: GenerateViewState = {
 /**
  * Reducer zarządzający stanem widoku generowania fiszek
  */
-export function generateViewReducer(
-  state: GenerateViewState,
-  action: GenerateViewAction
-): GenerateViewState {
+export function generateViewReducer(state: GenerateViewState, action: GenerateViewAction): GenerateViewState {
   switch (action.type) {
     case "SET_SOURCE_TEXT":
       return { ...state, sourceText: action.payload, error: null };
@@ -161,4 +158,3 @@ export function generateViewReducer(
       return state;
   }
 }
-

@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { FlashcardForm } from "./FlashcardForm";
 import type { FlashcardDTO } from "@/types";
 
@@ -35,10 +29,7 @@ export function FlashcardFormDialog({
     : "Wypełnij pola, aby utworzyć nową fiszkę.";
   const submitLabel = isEditMode ? "Zapisz zmiany" : "Dodaj fiszkę";
 
-  const initialData =
-    isEditMode && flashcard
-      ? { front: flashcard.front, back: flashcard.back }
-      : undefined;
+  const initialData = isEditMode && flashcard ? { front: flashcard.front, back: flashcard.back } : undefined;
 
   const handleSubmit = async (data: { front: string; back: string }) => {
     await onSubmit(data);
@@ -62,4 +53,3 @@ export function FlashcardFormDialog({
     </Dialog>
   );
 }
-

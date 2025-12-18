@@ -15,11 +15,7 @@ interface AuthTabsProps {
  */
 export function AuthTabs({ value, onValueChange, loginContent, registerContent }: AuthTabsProps) {
   return (
-    <Tabs
-      value={value}
-      onValueChange={(newValue) => onValueChange(newValue as AuthTabValue)}
-      className="w-full"
-    >
+    <Tabs value={value} onValueChange={(newValue) => onValueChange(newValue as AuthTabValue)} className="w-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">Zaloguj się</TabsTrigger>
         <TabsTrigger value="register">Zarejestruj się</TabsTrigger>
@@ -35,4 +31,3 @@ export function AuthTabs({ value, onValueChange, loginContent, registerContent }
     </Tabs>
   );
 }
-

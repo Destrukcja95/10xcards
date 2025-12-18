@@ -12,24 +12,13 @@ interface ProposalListProps {
 /**
  * ProposalList - kontener renderujący listę kart z propozycjami fiszek
  */
-export function ProposalList({
-  proposals,
-  onAccept,
-  onReject,
-  onEdit,
-  onUndo,
-}: ProposalListProps) {
+export function ProposalList({ proposals, onAccept, onReject, onEdit, onUndo }: ProposalListProps) {
   if (proposals.length === 0) {
     return null;
   }
 
   return (
-    <div
-      className="space-y-4"
-      role="region"
-      aria-label="Lista propozycji fiszek"
-      aria-live="polite"
-    >
+    <div className="space-y-4" role="region" aria-label="Lista propozycji fiszek" aria-live="polite">
       {proposals.map((proposal) => (
         <ProposalCard
           key={proposal.id}
@@ -43,4 +32,3 @@ export function ProposalList({
     </div>
   );
 }
-

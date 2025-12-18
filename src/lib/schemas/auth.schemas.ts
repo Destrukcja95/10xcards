@@ -24,10 +24,7 @@ export const registerFormSchema = z
       .min(1, "Email jest wymagany")
       .email("Nieprawidłowy format email")
       .max(255, "Email może mieć maksymalnie 255 znaków"),
-    password: z
-      .string()
-      .min(1, "Hasło jest wymagane")
-      .min(8, "Hasło musi mieć co najmniej 8 znaków"),
+    password: z.string().min(1, "Hasło jest wymagane").min(8, "Hasło musi mieć co najmniej 8 znaków"),
     confirmPassword: z.string().min(1, "Potwierdzenie hasła jest wymagane"),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -36,4 +33,3 @@ export const registerFormSchema = z
   });
 
 export type RegisterFormData = z.infer<typeof registerFormSchema>;
-

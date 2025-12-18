@@ -43,8 +43,7 @@ mockIntersectionObserver.mockReturnValue({
   unobserve: vi.fn(),
   disconnect: vi.fn(),
 });
-window.IntersectionObserver =
-  mockIntersectionObserver as unknown as typeof IntersectionObserver;
+window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 // Mock ResizeObserver for components that use it
 const mockResizeObserver = vi.fn();
@@ -53,6 +52,4 @@ mockResizeObserver.mockReturnValue({
   unobserve: vi.fn(),
   disconnect: vi.fn(),
 });
-window.ResizeObserver =
-  mockResizeObserver as unknown as typeof ResizeObserver;
-
+window.ResizeObserver = mockResizeObserver as unknown as typeof ResizeObserver;

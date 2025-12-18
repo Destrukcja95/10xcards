@@ -23,15 +23,7 @@ export default getViteConfig({
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
       reportsDirectory: "./coverage",
-      exclude: [
-        "node_modules/",
-        "dist/",
-        "e2e/",
-        "src/test/",
-        "**/*.d.ts",
-        "**/*.config.*",
-        "**/types.ts",
-      ],
+      exclude: ["node_modules/", "dist/", "e2e/", "src/test/", "**/*.d.ts", "**/*.config.*", "**/types.ts"],
       // Thresholds can be enabled when test coverage is established
       // thresholds: {
       //   lines: 80,
@@ -57,4 +49,3 @@ export default getViteConfig({
     watchExclude: ["node_modules", "dist"],
   },
 });
-

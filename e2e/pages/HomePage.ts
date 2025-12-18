@@ -1,14 +1,10 @@
-import type { Page } from "@playwright/test";
+// Page type is used via BasePage inheritance
 import { BasePage } from "./BasePage";
 
 /**
  * Page Object for the Home page
  */
 export class HomePage extends BasePage {
-  constructor(page: Page) {
-    super(page);
-  }
-
   // Locators - define page elements here
   get heading() {
     return this.getByRole("heading", { level: 1 });
@@ -29,4 +25,3 @@ export class HomePage extends BasePage {
 
   // Add more page-specific methods as needed
 }
-

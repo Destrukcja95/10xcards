@@ -20,4 +20,3 @@ export const handlers = [
 
   // Add more handlers as needed for your API endpoints
 ];
-

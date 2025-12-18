@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
-import { reviewFlashcardSchema } from '../../../lib/schemas/study-session.schema';
-import { StudySessionService } from '../../../lib/services/study-session.service';
-import type { ErrorDTO } from '../../../types';
+import { reviewFlashcardSchema } from "../../../lib/schemas/study-session.schema";
+import { StudySessionService } from "../../../lib/services/study-session.service";
+import type { ErrorDTO } from "../../../types";
 
 export const prerender = false;
 
@@ -38,13 +38,13 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -55,13 +55,13 @@ export const POST: APIRoute = async ({ locals, request }) => {
   } catch {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid JSON body',
+        code: "VALIDATION_ERROR",
+        message: "Invalid JSON body",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -71,17 +71,17 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (!validationResult.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: validationResult.error.errors[0]?.message || 'Invalid request payload',
+        code: "VALIDATION_ERROR",
+        message: validationResult.error.errors[0]?.message || "Invalid request payload",
         details: validationResult.error.errors.map((err) => ({
-          field: err.path.join('.'),
+          field: err.path.join("."),
           message: err.message,
         })),
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -93,33 +93,32 @@ export const POST: APIRoute = async ({ locals, request }) => {
     if (!result) {
       const errorResponse: ErrorDTO = {
         error: {
-          code: 'NOT_FOUND',
-          message: 'Flashcard not found',
+          code: "NOT_FOUND",
+          message: "Flashcard not found",
         },
       };
       return new Response(JSON.stringify(errorResponse), {
         status: 404,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     }
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[POST /api/study-session/review] Error:', error);
+    console.error("[POST /api/study-session/review] Error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred',
+        code: "INTERNAL_ERROR",
+        message: "An unexpected error occurred",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
-

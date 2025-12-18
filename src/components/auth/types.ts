@@ -39,4 +39,3 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
 export function getAuthErrorMessage(errorMessage: string): string {
   return AUTH_ERROR_MESSAGES[errorMessage] ?? "Wystąpił nieoczekiwany błąd. Spróbuj ponownie";
 }
-

@@ -73,11 +73,7 @@ export function StudyView() {
       {computed.currentFlashcard && !state.isComplete && !state.isLoading && (
         <>
           {/* Pasek postępu */}
-          <StudyProgress
-            current={state.currentIndex + 1}
-            total={state.flashcards.length}
-            totalDue={state.totalDue}
-          />
+          <StudyProgress current={state.currentIndex + 1} total={state.flashcards.length} totalDue={state.totalDue} />
 
           {/* Karta fiszki */}
           <StudyCard
@@ -88,20 +84,12 @@ export function StudyView() {
           />
 
           {/* Przyciski oceny - widoczne tylko gdy karta jest odwrócona */}
-          {state.isFlipped && (
-            <RatingButtons
-              onRate={actions.rateFlashcard}
-              isSubmitting={state.isSubmitting}
-            />
-          )}
+          {state.isFlipped && <RatingButtons onRate={actions.rateFlashcard} isSubmitting={state.isSubmitting} />}
 
           {/* Info o następnej powtórce */}
-          {state.lastReviewResult && (
-            <NextReviewInfo reviewResult={state.lastReviewResult} />
-          )}
+          {state.lastReviewResult && <NextReviewInfo reviewResult={state.lastReviewResult} />}
         </>
       )}
     </div>
   );
 }
-

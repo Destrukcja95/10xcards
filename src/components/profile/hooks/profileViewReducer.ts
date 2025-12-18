@@ -30,10 +30,7 @@ export const initialState: ProfileViewState = {
 /**
  * Reducer zarządzający stanem widoku profilu
  */
-export function profileViewReducer(
-  state: ProfileViewState,
-  action: ProfileViewAction
-): ProfileViewState {
+export function profileViewReducer(state: ProfileViewState, action: ProfileViewAction): ProfileViewState {
   switch (action.type) {
     // ========================================
     // STATS ACTIONS
@@ -170,4 +167,3 @@ export function profileViewReducer(
       return state;
   }
 }
-

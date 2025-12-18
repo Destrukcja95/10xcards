@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
-import { createFlashcardsSchema, getFlashcardsQuerySchema } from '../../lib/schemas/flashcards.schema';
-import { FlashcardsService } from '../../lib/services/flashcards.service';
-import type { CreateFlashcardsResponseDTO, ErrorDTO } from '../../types';
+import { createFlashcardsSchema, getFlashcardsQuerySchema } from "../../lib/schemas/flashcards.schema";
+import { FlashcardsService } from "../../lib/services/flashcards.service";
+import type { CreateFlashcardsResponseDTO, ErrorDTO } from "../../types";
 
 export const prerender = false;
 
@@ -23,13 +23,13 @@ export const GET: APIRoute = async ({ locals, url }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -40,17 +40,17 @@ export const GET: APIRoute = async ({ locals, url }) => {
   if (!validationResult.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid query parameters',
+        code: "VALIDATION_ERROR",
+        message: "Invalid query parameters",
         details: validationResult.error.errors.map((err) => ({
-          field: err.path.join('.'),
+          field: err.path.join("."),
           message: err.message,
         })),
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -60,20 +60,20 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[GET /api/flashcards] Error:', error);
+    console.error("[GET /api/flashcards] Error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred',
+        code: "INTERNAL_ERROR",
+        message: "An unexpected error occurred",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
@@ -94,13 +94,13 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -111,13 +111,13 @@ export const POST: APIRoute = async ({ locals, request }) => {
   } catch {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid JSON body',
+        code: "VALIDATION_ERROR",
+        message: "Invalid JSON body",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -127,17 +127,17 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (!validationResult.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid request payload',
+        code: "VALIDATION_ERROR",
+        message: "Invalid request payload",
         details: validationResult.error.errors.map((err) => ({
-          field: err.path.join('.'),
+          field: err.path.join("."),
           message: err.message,
         })),
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -151,21 +151,20 @@ export const POST: APIRoute = async ({ locals, request }) => {
 
     return new Response(JSON.stringify(response), {
       status: 201,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[POST /api/flashcards] Error:', error);
+    console.error("[POST /api/flashcards] Error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred',
+        code: "INTERNAL_ERROR",
+        message: "An unexpected error occurred",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
-

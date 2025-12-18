@@ -19,4 +19,3 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * cookies między przeglądarką a serwerem SSR.
  */
 export const supabase = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey);
-

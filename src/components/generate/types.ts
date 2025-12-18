@@ -90,4 +90,3 @@ export const VALIDATION_CONSTANTS = {
   BACK_MAX_LENGTH: 1000,
   RATE_LIMIT_MAX: 10,
 } as const;
-

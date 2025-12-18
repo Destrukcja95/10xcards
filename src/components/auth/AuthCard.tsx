@@ -3,7 +3,6 @@ import type { AuthError } from "@supabase/supabase-js";
 import { GraduationCap, Mail } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { AuthTabs } from "./AuthTabs";
 import { LoginForm } from "./LoginForm";
@@ -27,7 +26,7 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
     // Przekierowanie po pomyślnym logowaniu
     console.log("[AuthCard] handleLoginSuccess called, returnUrl:", returnUrl);
     console.log("[AuthCard] document.cookie before redirect:", document.cookie);
-    
+
     // Opóźnienie pozwala na zapisanie cookies sesji przez Supabase
     setTimeout(() => {
       console.log("[AuthCard] Redirecting to:", returnUrl);
@@ -46,7 +45,8 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
     setShowEmailVerification(true);
   };
 
-  const handleAuthError = (_error: AuthError) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleAuthError = (_: AuthError) => {
     // Błędy są obsługiwane bezpośrednio w komponentach formularzy
     // Ten callback może być użyty do dodatkowej logiki (np. analytics)
   };
@@ -65,10 +65,7 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
           </CardDescription>
         </CardHeader>
         <CardFooter className="flex justify-center">
-          <a
-            href="/"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
+          <a href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Wróć na stronę główną
           </a>
         </CardFooter>
@@ -84,9 +81,7 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
         </div>
         <CardTitle className="text-2xl">10x-cards</CardTitle>
         <CardDescription>
-          {activeTab === "login"
-            ? "Zaloguj się, aby kontynuować naukę"
-            : "Utwórz konto i zacznij tworzyć fiszki"}
+          {activeTab === "login" ? "Zaloguj się, aby kontynuować naukę" : "Utwórz konto i zacznij tworzyć fiszki"}
         </CardDescription>
       </CardHeader>
 
@@ -94,12 +89,7 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
         <AuthTabs
           value={activeTab}
           onValueChange={setActiveTab}
-          loginContent={
-            <LoginForm
-              onSuccess={handleLoginSuccess}
-              onError={handleAuthError}
-            />
-          }
+          loginContent={<LoginForm onSuccess={handleLoginSuccess} onError={handleAuthError} />}
           registerContent={
             <RegisterForm
               onSuccess={handleRegisterSuccess}
@@ -111,14 +101,10 @@ export function AuthCard({ defaultTab = "login", returnUrl = "/generate" }: Auth
       </CardContent>
 
       <CardFooter className="flex justify-center">
-        <a
-          href="/"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors"
-        >
+        <a href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
           Wróć na stronę główną
         </a>
       </CardFooter>
     </Card>
   );
 }
-

@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
-import { sessionIdParamSchema, updateSessionSchema } from '../../../lib/schemas/generation-sessions.schema';
-import { GenerationSessionsService } from '../../../lib/services/generation-sessions.service';
-import type { ErrorDTO } from '../../../types';
+import { sessionIdParamSchema, updateSessionSchema } from "../../../lib/schemas/generation-sessions.schema";
+import { GenerationSessionsService } from "../../../lib/services/generation-sessions.service";
+import type { ErrorDTO } from "../../../types";
 
 export const prerender = false;
 
@@ -30,13 +30,13 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -46,13 +46,13 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   if (!idValidation.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid session ID format',
+        code: "VALIDATION_ERROR",
+        message: "Invalid session ID format",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -63,13 +63,13 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   } catch {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid JSON body',
+        code: "VALIDATION_ERROR",
+        message: "Invalid JSON body",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -79,13 +79,13 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   if (!bodyValidation.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: bodyValidation.error.errors[0]?.message || 'Invalid request payload',
+        code: "VALIDATION_ERROR",
+        message: bodyValidation.error.errors[0]?.message || "Invalid request payload",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -96,33 +96,32 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
     if (!result) {
       const errorResponse: ErrorDTO = {
         error: {
-          code: 'NOT_FOUND',
-          message: 'Generation session not found',
+          code: "NOT_FOUND",
+          message: "Generation session not found",
         },
       };
       return new Response(JSON.stringify(errorResponse), {
         status: 404,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     }
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[PATCH /api/generation-sessions/:id] Error:', error);
+    console.error("[PATCH /api/generation-sessions/:id] Error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred',
+        code: "INTERNAL_ERROR",
+        message: "An unexpected error occurred",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
-

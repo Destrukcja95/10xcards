@@ -12,7 +12,7 @@ export function NextReviewInfo({ reviewResult }: NextReviewInfoProps) {
   const intervalText = formatInterval(reviewResult.interval);
 
   return (
-    <div 
+    <div
       className="flex items-center justify-center gap-2 rounded-lg bg-muted/50 px-4 py-3 animate-in fade-in duration-300"
       role="status"
       aria-live="polite"
@@ -43,4 +43,3 @@ export function NextReviewInfo({ reviewResult }: NextReviewInfoProps) {
     </div>
   );
 }
-

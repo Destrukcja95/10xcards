@@ -1,7 +1,7 @@
-import type { APIRoute } from 'astro';
-import { createClient } from '@supabase/supabase-js';
-import type { Database } from '../../db/database.types';
-import type { ErrorDTO } from '../../types';
+import type { APIRoute } from "astro";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "../../db/database.types";
+import type { ErrorDTO } from "../../types";
 
 export const prerender = false;
 
@@ -9,10 +9,10 @@ export const prerender = false;
  * DELETE /api/account
  * Usuwa konto aktualnie zalogowanego użytkownika.
  * Wymaga autoryzacji (middleware sprawdza sesję).
- * 
+ *
  * Używa Supabase Admin API do usunięcia użytkownika.
  * RLS CASCADE automatycznie usuwa powiązane dane (flashcards, generation_sessions).
- * 
+ *
  * Response:
  * - 204 No Content - sukces
  * - 401 Unauthorized - brak autoryzacji
@@ -25,13 +25,13 @@ export const DELETE: APIRoute = async ({ locals }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -53,39 +53,38 @@ export const DELETE: APIRoute = async ({ locals }) => {
     const { error } = await supabaseAdmin.auth.admin.deleteUser(user.id);
 
     if (error) {
-      console.error('[DELETE /api/account] Supabase admin error:', error);
-      
+      console.error("[DELETE /api/account] Supabase admin error:", error);
+
       const errorResponse: ErrorDTO = {
         error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Nie udało się usunąć konta. Spróbuj ponownie później.',
+          code: "INTERNAL_ERROR",
+          message: "Nie udało się usunąć konta. Spróbuj ponownie później.",
         },
       };
       return new Response(JSON.stringify(errorResponse), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     }
 
-    console.log('[DELETE /api/account] User deleted successfully:', user.id);
+    console.log("[DELETE /api/account] User deleted successfully:", user.id);
 
     // 204 No Content - sukces bez body
     return new Response(null, {
       status: 204,
     });
   } catch (error) {
-    console.error('[DELETE /api/account] Unexpected error:', error);
+    console.error("[DELETE /api/account] Unexpected error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.',
+        code: "INTERNAL_ERROR",
+        message: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
-

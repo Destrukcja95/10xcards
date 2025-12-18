@@ -28,7 +28,6 @@ export function SourceTextArea({
 }: SourceTextAreaProps) {
   const id = useId();
   const currentLength = value.length;
-  const isUnderMin = currentLength < minLength;
   const isOverMax = currentLength > maxLength;
   const isValid = currentLength >= minLength && currentLength <= maxLength;
 
@@ -41,7 +40,7 @@ export function SourceTextArea({
       <Label htmlFor={id} className="text-base font-medium">
         Tekst źródłowy
       </Label>
-      
+
       <Textarea
         id={id}
         value={value}
@@ -59,13 +58,8 @@ export function SourceTextArea({
       />
 
       <div id={`${id}-counter`}>
-        <CharacterCounter
-          currentLength={currentLength}
-          minLength={minLength}
-          maxLength={maxLength}
-        />
+        <CharacterCounter currentLength={currentLength} minLength={minLength} maxLength={maxLength} />
       </div>
     </div>
   );
 }
-

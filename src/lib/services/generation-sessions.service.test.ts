@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { GenerationSessionsService } from './generation-sessions.service';
-import type { SupabaseClient } from '../../db/supabase.client';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { GenerationSessionsService } from "./generation-sessions.service";
+import type { SupabaseClient } from "../../db/supabase.client";
 
 // Helper to create mock Supabase client
 const createMockSupabase = () => {
@@ -9,7 +9,7 @@ const createMockSupabase = () => {
   } as unknown as SupabaseClient;
 };
 
-describe('GenerationSessionsService', () => {
+describe("GenerationSessionsService", () => {
   let service: GenerationSessionsService;
   let mockSupabase: SupabaseClient;
 
@@ -21,12 +21,12 @@ describe('GenerationSessionsService', () => {
   // ============================================================================
   // TC-STATS-001 & TC-STATS-002: getSessions Tests
   // ============================================================================
-  describe('getSessions', () => {
-    it('should return paginated sessions with summary statistics', async () => {
-      const mockUserId = 'user-123';
+  describe("getSessions", () => {
+    it("should return paginated sessions with summary statistics", async () => {
+      const mockUserId = "user-123";
       const mockSessions = [
-        { id: '1', generated_count: 10, accepted_count: 8, created_at: '2024-01-15T00:00:00Z' },
-        { id: '2', generated_count: 15, accepted_count: 10, created_at: '2024-01-14T00:00:00Z' },
+        { id: "1", generated_count: 10, accepted_count: 8, created_at: "2024-01-15T00:00:00Z" },
+        { id: "2", generated_count: 15, accepted_count: 10, created_at: "2024-01-14T00:00:00Z" },
       ];
 
       let callCount = 0;
@@ -37,7 +37,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 5, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           // Data query
@@ -46,7 +46,7 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: mockSessions, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         // Summary query
         return {
@@ -59,7 +59,7 @@ describe('GenerationSessionsService', () => {
             ],
             error: null,
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       const result = await service.getSessions(mockUserId, { page: 1, limit: 20 });
@@ -77,8 +77,8 @@ describe('GenerationSessionsService', () => {
       expect(result.summary.acceptance_rate).toBeCloseTo(66.67, 2);
     });
 
-    it('TC-STATS-002: should calculate acceptance_rate correctly', async () => {
-      const mockUserId = 'user-123';
+    it("TC-STATS-002: should calculate acceptance_rate correctly", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -87,7 +87,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 2, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           return {
@@ -95,7 +95,7 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: [], error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         // Summary with specific values for calculation test
         return {
@@ -107,7 +107,7 @@ describe('GenerationSessionsService', () => {
             ],
             error: null,
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       const result = await service.getSessions(mockUserId, { page: 1, limit: 20 });
@@ -118,8 +118,8 @@ describe('GenerationSessionsService', () => {
       expect(result.summary.acceptance_rate).toBeCloseTo(66.67, 2);
     });
 
-    it('TC-STATS-002: should return 0 acceptance_rate when no generations', async () => {
-      const mockUserId = 'user-123';
+    it("TC-STATS-002: should return 0 acceptance_rate when no generations", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -128,7 +128,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 0, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           return {
@@ -136,7 +136,7 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: [], error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         // Empty summary - handles division by zero
         return {
@@ -145,7 +145,7 @@ describe('GenerationSessionsService', () => {
             data: [],
             error: null,
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       const result = await service.getSessions(mockUserId, { page: 1, limit: 20 });
@@ -155,8 +155,8 @@ describe('GenerationSessionsService', () => {
       expect(result.summary.acceptance_rate).toBe(0);
     });
 
-    it('should round acceptance_rate to 2 decimal places', async () => {
-      const mockUserId = 'user-123';
+    it("should round acceptance_rate to 2 decimal places", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -165,7 +165,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 1, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           return {
@@ -173,7 +173,7 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: [], error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         // Summary with values that produce repeating decimal
         return {
@@ -182,7 +182,7 @@ describe('GenerationSessionsService', () => {
             data: [{ generated_count: 3, accepted_count: 1 }],
             error: null,
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       const result = await service.getSessions(mockUserId, { page: 1, limit: 20 });
@@ -191,8 +191,8 @@ describe('GenerationSessionsService', () => {
       expect(result.summary.acceptance_rate).toBe(33.33);
     });
 
-    it('should calculate correct pagination for multiple pages', async () => {
-      const mockUserId = 'user-123';
+    it("should calculate correct pagination for multiple pages", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -201,7 +201,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 45, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           return {
@@ -209,12 +209,12 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: [], error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         return {
           select: vi.fn().mockReturnThis(),
           eq: vi.fn().mockResolvedValue({ data: [], error: null }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       const result = await service.getSessions(mockUserId, { page: 2, limit: 20 });
@@ -223,24 +223,24 @@ describe('GenerationSessionsService', () => {
       expect(result.pagination.total_pages).toBe(3); // 45/20 = 2.25 → 3
     });
 
-    it('should throw error on count query failure', async () => {
-      const mockUserId = 'user-123';
+    it("should throw error on count query failure", async () => {
+      const mockUserId = "user-123";
 
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn().mockReturnThis(),
         eq: vi.fn().mockResolvedValue({
           count: null,
-          error: { message: 'Database error' },
+          error: { message: "Database error" },
         }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
       await expect(service.getSessions(mockUserId, { page: 1, limit: 20 })).rejects.toThrow(
-        'Database error: Database error'
+        "Database error: Database error"
       );
     });
 
-    it('should throw error on data query failure', async () => {
-      const mockUserId = 'user-123';
+    it("should throw error on data query failure", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -249,7 +249,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 10, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         return {
           select: vi.fn().mockReturnThis(),
@@ -257,18 +257,18 @@ describe('GenerationSessionsService', () => {
           order: vi.fn().mockReturnThis(),
           range: vi.fn().mockResolvedValue({
             data: null,
-            error: { message: 'Query failed' },
+            error: { message: "Query failed" },
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       await expect(service.getSessions(mockUserId, { page: 1, limit: 20 })).rejects.toThrow(
-        'Database error: Query failed'
+        "Database error: Query failed"
       );
     });
 
-    it('should throw error on summary query failure', async () => {
-      const mockUserId = 'user-123';
+    it("should throw error on summary query failure", async () => {
+      const mockUserId = "user-123";
 
       let callCount = 0;
       mockSupabase.from = vi.fn(() => {
@@ -277,7 +277,7 @@ describe('GenerationSessionsService', () => {
           return {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockResolvedValue({ count: 10, error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         if (callCount === 2) {
           return {
@@ -285,19 +285,19 @@ describe('GenerationSessionsService', () => {
             eq: vi.fn().mockReturnThis(),
             order: vi.fn().mockReturnThis(),
             range: vi.fn().mockResolvedValue({ data: [], error: null }),
-          } as unknown as ReturnType<SupabaseClient['from']>;
+          } as unknown as ReturnType<SupabaseClient["from"]>;
         }
         return {
           select: vi.fn().mockReturnThis(),
           eq: vi.fn().mockResolvedValue({
             data: null,
-            error: { message: 'Summary query failed' },
+            error: { message: "Summary query failed" },
           }),
-        } as unknown as ReturnType<SupabaseClient['from']>;
+        } as unknown as ReturnType<SupabaseClient["from"]>;
       });
 
       await expect(service.getSessions(mockUserId, { page: 1, limit: 20 })).rejects.toThrow(
-        'Database error: Summary query failed'
+        "Database error: Summary query failed"
       );
     });
   });
@@ -305,15 +305,15 @@ describe('GenerationSessionsService', () => {
   // ============================================================================
   // updateSession Tests
   // ============================================================================
-  describe('updateSession', () => {
-    it('should update session accepted_count and return updated data', async () => {
-      const mockUserId = 'user-123';
-      const mockSessionId = '123e4567-e89b-12d3-a456-426614174000';
+  describe("updateSession", () => {
+    it("should update session accepted_count and return updated data", async () => {
+      const mockUserId = "user-123";
+      const mockSessionId = "123e4567-e89b-12d3-a456-426614174000";
       const mockUpdatedSession = {
         id: mockSessionId,
         generated_count: 15,
         accepted_count: 12,
-        created_at: '2024-01-15T00:00:00Z',
+        created_at: "2024-01-15T00:00:00Z",
       };
 
       mockSupabase.from = vi.fn(() => ({
@@ -321,7 +321,7 @@ describe('GenerationSessionsService', () => {
         eq: vi.fn().mockReturnThis(),
         select: vi.fn().mockReturnThis(),
         single: vi.fn().mockResolvedValue({ data: mockUpdatedSession, error: null }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
       const result = await service.updateSession(mockUserId, mockSessionId, {
         accepted_count: 12,
@@ -330,9 +330,9 @@ describe('GenerationSessionsService', () => {
       expect(result).toEqual(mockUpdatedSession);
     });
 
-    it('should return null when session not found (PGRST116)', async () => {
-      const mockUserId = 'user-123';
-      const mockSessionId = '123e4567-e89b-12d3-a456-426614174000';
+    it("should return null when session not found (PGRST116)", async () => {
+      const mockUserId = "user-123";
+      const mockSessionId = "123e4567-e89b-12d3-a456-426614174000";
 
       mockSupabase.from = vi.fn(() => ({
         update: vi.fn().mockReturnThis(),
@@ -340,9 +340,9 @@ describe('GenerationSessionsService', () => {
         select: vi.fn().mockReturnThis(),
         single: vi.fn().mockResolvedValue({
           data: null,
-          error: { code: 'PGRST116', message: 'No rows found' },
+          error: { code: "PGRST116", message: "No rows found" },
         }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
       const result = await service.updateSession(mockUserId, mockSessionId, {
         accepted_count: 12,
@@ -351,9 +351,9 @@ describe('GenerationSessionsService', () => {
       expect(result).toBeNull();
     });
 
-    it('should throw error on other database errors', async () => {
-      const mockUserId = 'user-123';
-      const mockSessionId = '123e4567-e89b-12d3-a456-426614174000';
+    it("should throw error on other database errors", async () => {
+      const mockUserId = "user-123";
+      const mockSessionId = "123e4567-e89b-12d3-a456-426614174000";
 
       mockSupabase.from = vi.fn(() => ({
         update: vi.fn().mockReturnThis(),
@@ -361,18 +361,18 @@ describe('GenerationSessionsService', () => {
         select: vi.fn().mockReturnThis(),
         single: vi.fn().mockResolvedValue({
           data: null,
-          error: { code: 'OTHER', message: 'Update failed' },
+          error: { code: "OTHER", message: "Update failed" },
         }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
-      await expect(
-        service.updateSession(mockUserId, mockSessionId, { accepted_count: 12 })
-      ).rejects.toThrow('Database error: Update failed');
+      await expect(service.updateSession(mockUserId, mockSessionId, { accepted_count: 12 })).rejects.toThrow(
+        "Database error: Update failed"
+      );
     });
 
-    it('should update with zero accepted_count', async () => {
-      const mockUserId = 'user-123';
-      const mockSessionId = '123e4567-e89b-12d3-a456-426614174000';
+    it("should update with zero accepted_count", async () => {
+      const mockUserId = "user-123";
+      const mockSessionId = "123e4567-e89b-12d3-a456-426614174000";
 
       let capturedUpdate: object | null = null;
 
@@ -388,16 +388,16 @@ describe('GenerationSessionsService', () => {
             }),
           };
         }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
       await service.updateSession(mockUserId, mockSessionId, { accepted_count: 0 });
 
       expect(capturedUpdate).toEqual({ accepted_count: 0 });
     });
 
-    it('should only update accepted_count field', async () => {
-      const mockUserId = 'user-123';
-      const mockSessionId = '123e4567-e89b-12d3-a456-426614174000';
+    it("should only update accepted_count field", async () => {
+      const mockUserId = "user-123";
+      const mockSessionId = "123e4567-e89b-12d3-a456-426614174000";
 
       let capturedUpdate: object | null = null;
 
@@ -413,14 +413,13 @@ describe('GenerationSessionsService', () => {
             }),
           };
         }),
-      })) as unknown as SupabaseClient['from'];
+      })) as unknown as SupabaseClient["from"];
 
       await service.updateSession(mockUserId, mockSessionId, { accepted_count: 5 });
 
       // Should only contain accepted_count, not generated_count or other fields
       expect(capturedUpdate).toEqual({ accepted_count: 5 });
-      expect(capturedUpdate).not.toHaveProperty('generated_count');
+      expect(capturedUpdate).not.toHaveProperty("generated_count");
     });
   });
 });
-

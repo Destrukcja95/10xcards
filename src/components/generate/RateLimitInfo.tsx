@@ -69,11 +69,7 @@ export function RateLimitInfo({ remaining, resetAt, isLimited }: RateLimitInfoPr
           />
         ) : (
           // Ikona zegara/limitu
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         )}
       </svg>
 
@@ -82,11 +78,7 @@ export function RateLimitInfo({ remaining, resetAt, isLimited }: RateLimitInfoPr
         {isLimited ? (
           <span>
             Przekroczono limit generowań.
-            {timeLeft && (
-              <span className="ml-1 font-medium">
-                Spróbuj ponownie za {timeLeft}
-              </span>
-            )}
+            {timeLeft && <span className="ml-1 font-medium">Spróbuj ponownie za {timeLeft}</span>}
           </span>
         ) : (
           <span>
@@ -101,4 +93,3 @@ export function RateLimitInfo({ remaining, resetAt, isLimited }: RateLimitInfoPr
     </div>
   );
 }
-

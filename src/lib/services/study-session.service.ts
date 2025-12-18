@@ -1,6 +1,6 @@
-import type { SupabaseClient } from '../../db/supabase.client';
-import type { StudySessionResponseDTO, StudySessionFlashcardDTO, ReviewResultDTO } from '../../types';
-import type { StudySessionQuery, ReviewFlashcardInput } from '../schemas/study-session.schema';
+import type { SupabaseClient } from "../../db/supabase.client";
+import type { StudySessionResponseDTO, StudySessionFlashcardDTO, ReviewResultDTO } from "../../types";
+import type { StudySessionQuery, ReviewFlashcardInput } from "../schemas/study-session.schema";
 
 /**
  * Parametry algorytmu SM-2 używane do obliczeń
@@ -33,10 +33,10 @@ export class StudySessionService {
 
     // Pobranie total_due - całkowita liczba fiszek wymagających powtórki
     const { count: totalDue, error: countError } = await this.supabase
-      .from('flashcards')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', userId)
-      .lte('next_review_date', now);
+      .from("flashcards")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .lte("next_review_date", now);
 
     if (countError) {
       throw new Error(`Database error: ${countError.message}`);
@@ -45,11 +45,11 @@ export class StudySessionService {
     // Pobranie fiszek do powtórki z limitem
     // Selekcja tylko pól wymaganych w StudySessionFlashcardDTO
     const { data, error } = await this.supabase
-      .from('flashcards')
-      .select('id, front, back, ease_factor, interval, repetition_count')
-      .eq('user_id', userId)
-      .lte('next_review_date', now)
-      .order('next_review_date', { ascending: true })
+      .from("flashcards")
+      .select("id, front, back, ease_factor, interval, repetition_count")
+      .eq("user_id", userId)
+      .lte("next_review_date", now)
+      .order("next_review_date", { ascending: true })
       .limit(limit);
 
     if (error) {
@@ -75,10 +75,10 @@ export class StudySessionService {
   async reviewFlashcard(userId: string, input: ReviewFlashcardInput): Promise<ReviewResultDTO | null> {
     // Pobranie aktualnych parametrów SM-2 dla fiszki
     const { data: current, error: fetchError } = await this.supabase
-      .from('flashcards')
-      .select('ease_factor, interval, repetition_count')
-      .eq('id', input.flashcard_id)
-      .eq('user_id', userId)
+      .from("flashcards")
+      .select("ease_factor, interval, repetition_count")
+      .eq("id", input.flashcard_id)
+      .eq("user_id", userId)
       .single();
 
     if (fetchError || !current) {
@@ -93,7 +93,7 @@ export class StudySessionService {
 
     // Aktualizacja fiszki w bazie danych
     const { data, error } = await this.supabase
-      .from('flashcards')
+      .from("flashcards")
       .update({
         ease_factor: newParams.ease_factor,
         interval: newParams.interval,
@@ -101,9 +101,9 @@ export class StudySessionService {
         next_review_date: nextReview.toISOString(),
         last_reviewed_at: now.toISOString(),
       })
-      .eq('id', input.flashcard_id)
-      .eq('user_id', userId)
-      .select('id, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at')
+      .eq("id", input.flashcard_id)
+      .eq("user_id", userId)
+      .select("id, ease_factor, interval, repetition_count, next_review_date, last_reviewed_at")
       .single();
 
     if (error) {
@@ -158,4 +158,3 @@ export class StudySessionService {
     return { ease_factor, interval, repetition_count };
   }
 }
-

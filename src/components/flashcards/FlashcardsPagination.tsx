@@ -10,11 +10,7 @@ interface FlashcardsPaginationProps {
 /**
  * Komponent paginacji do nawigacji między stronami listy fiszek
  */
-export function FlashcardsPagination({
-  pagination,
-  onPageChange,
-  isLoading = false,
-}: FlashcardsPaginationProps) {
+export function FlashcardsPagination({ pagination, onPageChange, isLoading = false }: FlashcardsPaginationProps) {
   const { page, total_pages } = pagination;
 
   const isFirstPage = page <= 1;
@@ -26,10 +22,7 @@ export function FlashcardsPagination({
   }
 
   return (
-    <nav
-      className="mt-8 flex items-center justify-center gap-4"
-      aria-label="Paginacja fiszek"
-    >
+    <nav className="mt-8 flex items-center justify-center gap-4" aria-label="Paginacja fiszek">
       <Button
         variant="outline"
         size="sm"
@@ -86,4 +79,3 @@ export function FlashcardsPagination({
     </nav>
   );
 }
-

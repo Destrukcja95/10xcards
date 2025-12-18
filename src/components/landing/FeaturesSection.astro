@@ -37,15 +37,12 @@ const features = [
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Nagłówek sekcji -->
     <div class="mx-auto max-w-2xl text-center">
-      <h2
-        id="features-heading"
-        class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-      >
+      <h2 id="features-heading" class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         Dlaczego 10x-cards?
       </h2>
       <p class="mt-4 text-lg text-muted-foreground">
-        Połączenie sztucznej inteligencji z naukowo udowodnionymi metodami nauki
-        sprawia, że zapamiętywanie jest szybsze i trwalsze.
+        Połączenie sztucznej inteligencji z naukowo udowodnionymi metodami nauki sprawia, że zapamiętywanie jest szybsze
+        i trwalsze.
       </p>
     </div>
 
@@ -53,14 +50,9 @@ const features = [
     <div class="mx-auto mt-16 grid max-w-5xl gap-6 sm:grid-cols-2 lg:gap-8">
       {
         features.map((feature) => (
-          <FeatureCard
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-          />
+          <FeatureCard icon={feature.icon} title={feature.title} description={feature.description} />
         ))
       }
     </div>
   </div>
 </section>
-

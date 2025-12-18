@@ -1,9 +1,9 @@
 /// <reference types="astro/client" />
 /// <reference types="vitest/globals" />
 
-import type { User } from '@supabase/supabase-js';
+import type { User } from "@supabase/supabase-js";
 
-import type { SupabaseClient } from './db/supabase.client';
+import type { SupabaseClient } from "./db/supabase.client";
 
 declare global {
   namespace App {

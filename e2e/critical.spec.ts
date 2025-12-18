@@ -22,9 +22,7 @@ test.describe("Critical E2E Tests", () => {
   // AUTENTYKACJA - Priorytet: Krytyczny
   // ============================================
 
-  test("TC-AUTH-002: should be authenticated and access /generate", async ({
-    page,
-  }) => {
+  test("TC-AUTH-002: should be authenticated and access /generate", async ({ page }) => {
     // Dzięki storageState z setup, użytkownik powinien być już zalogowany
     await page.goto("/generate");
     await page.waitForLoadState("domcontentloaded");
@@ -36,9 +34,7 @@ test.describe("Critical E2E Tests", () => {
     await expect(page.getByRole("heading", { name: /generuj fiszki/i })).toBeVisible();
   });
 
-  test("TC-AUTH-004: should redirect to login when accessing protected routes without auth", async ({
-    browser,
-  }) => {
+  test("TC-AUTH-004: should redirect to login when accessing protected routes without auth", async ({ browser }) => {
     // Użyj nowego kontekstu BEZ storageState (niezalogowany) - wyczyść cookies
     const context = await browser.newContext({ storageState: undefined });
     const page = await context.newPage();
@@ -59,9 +55,7 @@ test.describe("Critical E2E Tests", () => {
   // GENEROWANIE AI - Priorytet: Krytyczny
   // ============================================
 
-  test("TC-GEN-001: should generate flashcards from valid source text", async ({
-    page,
-  }) => {
+  test("TC-GEN-001: should generate flashcards from valid source text", async ({ page }) => {
     const generatePage = new GeneratePage(page);
     await generatePage.goto();
     await generatePage.waitForPageLoad();
@@ -95,9 +89,7 @@ test.describe("Critical E2E Tests", () => {
     }
   });
 
-  test("TC-GEN-002: should validate source text length requirements", async ({
-    page,
-  }) => {
+  test("TC-GEN-002: should validate source text length requirements", async ({ page }) => {
     const generatePage = new GeneratePage(page);
     await generatePage.goto();
     await generatePage.waitForPageLoad();
@@ -115,9 +107,7 @@ test.describe("Critical E2E Tests", () => {
   // ZARZĄDZANIE FISZKAMI - Priorytet: Krytyczny
   // ============================================
 
-  test("TC-FLASH-001: should display flashcards list or empty state", async ({
-    page,
-  }) => {
+  test("TC-FLASH-001: should display flashcards list or empty state", async ({ page }) => {
     const flashcardsPage = new FlashcardsPage(page);
     await flashcardsPage.goto();
     await flashcardsPage.waitForPageLoad();
@@ -127,9 +117,7 @@ test.describe("Critical E2E Tests", () => {
     expect(isEmpty || hasFlashcards).toBeTruthy();
   });
 
-  test("TC-FLASH-002: should create a new flashcard manually", async ({
-    page,
-  }) => {
+  test("TC-FLASH-002: should create a new flashcard manually", async ({ page }) => {
     const flashcardsPage = new FlashcardsPage(page);
     await flashcardsPage.goto();
     await flashcardsPage.waitForPageLoad();
@@ -167,9 +155,7 @@ test.describe("Critical E2E Tests", () => {
   // SESJA NAUKI - Priorytet: Wysoki
   // ============================================
 
-  test("TC-STUDY-001: should display study session or empty state", async ({
-    page,
-  }) => {
+  test("TC-STUDY-001: should display study session or empty state", async ({ page }) => {
     const studyPage = new StudyPage(page);
     await studyPage.goto();
     await page.waitForLoadState("domcontentloaded");
@@ -177,22 +163,29 @@ test.describe("Critical E2E Tests", () => {
 
     // Sprawdź czy jest którykolwiek ze stanów
     const hasFlashcard = await studyPage.studyCard.isVisible().catch(() => false);
-    const hasCompletionHeading = await page.getByRole("heading", { name: /świetna robota/i }).isVisible().catch(() => false);
-    const hasProgressBar = await page.getByRole("progressbar").isVisible().catch(() => false);
+    const hasCompletionHeading = await page
+      .getByRole("heading", { name: /świetna robota/i })
+      .isVisible()
+      .catch(() => false);
+    const hasProgressBar = await page
+      .getByRole("progressbar")
+      .isVisible()
+      .catch(() => false);
 
     expect(hasFlashcard || hasCompletionHeading || hasProgressBar).toBeTruthy();
   });
 
-  test("TC-STUDY-002: should reveal answer and show rating buttons", async ({
-    page,
-  }) => {
+  test("TC-STUDY-002: should reveal answer and show rating buttons", async ({ page }) => {
     const studyPage = new StudyPage(page);
     await studyPage.goto();
     await page.waitForLoadState("domcontentloaded");
     await page.waitForTimeout(2000);
 
     // Sprawdź czy są fiszki do powtórki (szukamy nagłówka "Świetna robota!")
-    const isCompleted = await page.getByRole("heading", { name: /świetna robota/i }).isVisible().catch(() => false);
+    const isCompleted = await page
+      .getByRole("heading", { name: /świetna robota/i })
+      .isVisible()
+      .catch(() => false);
     test.skip(isCompleted, "No flashcards available for study - session completed or empty");
 
     // Sprawdź czy przycisk odsłaniający odpowiedź jest widoczny
@@ -211,9 +204,7 @@ test.describe("Critical E2E Tests", () => {
   // PROFIL - Priorytet: Średni
   // ============================================
 
-  test("TC-PROFILE-001: should display user profile with delete option", async ({
-    page,
-  }) => {
+  test("TC-PROFILE-001: should display user profile with delete option", async ({ page }) => {
     const profilePage = new ProfilePage(page);
     await profilePage.goto();
     await profilePage.waitForPageLoad();

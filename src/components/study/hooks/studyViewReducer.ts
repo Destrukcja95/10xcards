@@ -19,10 +19,7 @@ export const initialState: StudyViewState = {
 /**
  * Reducer zarządzający stanem widoku sesji nauki
  */
-export function studyViewReducer(
-  state: StudyViewState,
-  action: StudyViewAction
-): StudyViewState {
+export function studyViewReducer(state: StudyViewState, action: StudyViewAction): StudyViewState {
   switch (action.type) {
     // ========================================
     // FETCH ACTIONS
@@ -124,4 +121,3 @@ export function studyViewReducer(
       return state;
   }
 }
-

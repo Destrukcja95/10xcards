@@ -33,9 +33,7 @@ export function EmptyFlashcardsState({ onAddClick }: EmptyFlashcardsStateProps) 
       </div>
 
       {/* Tekst */}
-      <h2 className="mb-2 text-xl font-semibold text-foreground">
-        Nie masz jeszcze fiszek
-      </h2>
+      <h2 className="mb-2 text-xl font-semibold text-foreground">Nie masz jeszcze fiszek</h2>
       <p className="mb-8 max-w-sm text-muted-foreground">
         Zacznij od wygenerowania fiszek AI lub dodaj pierwszą ręcznie.
       </p>
@@ -52,4 +50,3 @@ export function EmptyFlashcardsState({ onAddClick }: EmptyFlashcardsStateProps) 
     </div>
   );
 }
-

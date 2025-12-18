@@ -16,13 +16,7 @@ interface ProposalCardProps {
 /**
  * ProposalCard - pojedyncza karta propozycji fiszki z akcjami i możliwością edycji inline
  */
-export function ProposalCard({
-  proposal,
-  onAccept,
-  onReject,
-  onEdit,
-  onUndo,
-}: ProposalCardProps) {
+export function ProposalCard({ proposal, onAccept, onReject, onEdit, onUndo }: ProposalCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const { status, front, back } = proposal;
 
@@ -68,41 +62,19 @@ export function ProposalCard({
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">
-              Przód
-            </div>
-            <p
-              className={cn(
-                "text-base font-medium",
-                status === "rejected" && "line-through"
-              )}
-            >
-              {front}
-            </p>
+            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">Przód</div>
+            <p className={cn("text-base font-medium", status === "rejected" && "line-through")}>{front}</p>
           </div>
           {/* Status badge */}
-          {status === "accepted" && (
-            <StatusBadge variant="success">Zaakceptowana</StatusBadge>
-          )}
-          {status === "rejected" && (
-            <StatusBadge variant="muted">Odrzucona</StatusBadge>
-          )}
+          {status === "accepted" && <StatusBadge variant="success">Zaakceptowana</StatusBadge>}
+          {status === "rejected" && <StatusBadge variant="muted">Odrzucona</StatusBadge>}
         </div>
       </CardHeader>
 
       {/* Treść z tył fiszki */}
       <CardContent className="pt-0">
-        <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">
-          Tył
-        </div>
-        <p
-          className={cn(
-            "text-sm text-muted-foreground",
-            status === "rejected" && "line-through"
-          )}
-        >
-          {back}
-        </p>
+        <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">Tył</div>
+        <p className={cn("text-sm text-muted-foreground", status === "rejected" && "line-through")}>{back}</p>
       </CardContent>
 
       {/* Przyciski akcji */}
@@ -151,13 +123,7 @@ export function ProposalCard({
 /**
  * StatusBadge - mały badge ze statusem
  */
-function StatusBadge({
-  children,
-  variant,
-}: {
-  children: React.ReactNode;
-  variant: "success" | "muted";
-}) {
+function StatusBadge({ children, variant }: { children: React.ReactNode; variant: "success" | "muted" }) {
   return (
     <span
       className={cn(
@@ -191,7 +157,11 @@ function XIcon() {
 function PencilIcon() {
   return (
     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+      />
     </svg>
   );
 }
@@ -203,4 +173,3 @@ function UndoIcon() {
     </svg>
   );
 }
-

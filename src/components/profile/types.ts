@@ -103,4 +103,3 @@ export type ProfileViewAction =
   // General actions
   | { type: "CLEAR_ERROR" }
   | { type: "CLEAR_SUCCESS" };
-

@@ -96,9 +96,15 @@ export class StudyPage extends BasePage {
     await this.page.waitForLoadState("domcontentloaded");
     // Wait for either study card, empty state, or loading to appear
     await Promise.race([
-      this.studyCard.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
-      this.emptyState.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
-      this.skeleton.waitFor({ state: "visible", timeout: 5000 }).catch(() => {}),
+      this.studyCard.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
+      this.emptyState.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
+      this.skeleton.waitFor({ state: "visible", timeout: 5000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
     ]);
     // If skeleton appeared, wait for it to disappear
     if (await this.skeleton.isVisible()) {
@@ -110,7 +116,12 @@ export class StudyPage extends BasePage {
   async showAnswer(): Promise<void> {
     await this.showAnswerButton.click();
     // Wait for rating buttons to appear
-    await this.ratingButtons.first().waitFor({ state: "visible", timeout: 5000 }).catch(() => {});
+    await this.ratingButtons
+      .first()
+      .waitFor({ state: "visible", timeout: 5000 })
+      .catch(() => {
+        /* intentionally empty - buttons may already be visible */
+      });
   }
 
   async rateFlashcard(rating: 0 | 1 | 2 | 3 | 4 | 5): Promise<void> {
@@ -158,15 +169,18 @@ export class StudyPage extends BasePage {
   async isCardFlipped(): Promise<boolean> {
     // Check if answer/back side is visible
     const isBackVisible = await this.cardBack.isVisible().catch(() => false);
-    const hasRatingButtons = await this.ratingButtons.first().isVisible().catch(() => false);
+    const hasRatingButtons = await this.ratingButtons
+      .first()
+      .isVisible()
+      .catch(() => false);
     return isBackVisible || hasRatingButtons;
   }
 
   async getCurrentFlashcardText(): Promise<{ front: string; back?: string }> {
-    const front = await this.cardFront.textContent() ?? "";
+    const front = (await this.cardFront.textContent()) ?? "";
     let back: string | undefined;
     if (await this.isCardFlipped()) {
-      back = await this.cardBack.textContent() ?? undefined;
+      back = (await this.cardBack.textContent()) ?? undefined;
     }
     return { front, back };
   }
@@ -184,4 +198,3 @@ export class StudyPage extends BasePage {
     };
   }
 }
-

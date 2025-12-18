@@ -3,4 +3,3 @@ import { handlers } from "./handlers";
 
 // Setup MSW server with default handlers
 export const server = setupServer(...handlers);
-

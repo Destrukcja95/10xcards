@@ -80,12 +80,12 @@ export const FLASHCARD_VALIDATION = {
 export const DEFAULT_PAGE_SIZE = 20;
 
 /** Opcje sortowania dla selecta */
-export const SORT_OPTIONS: Array<{
+export const SORT_OPTIONS: {
   value: SortValue;
   label: string;
   sort: SortOption;
   order: SortOrder;
-}> = [
+}[] = [
   {
     value: "created_at_desc",
     label: "Data utworzenia (najnowsze)",
@@ -152,4 +152,3 @@ export type FlashcardsViewAction =
   | { type: "SET_SORT"; payload: { sort: SortOption; order: SortOrder } }
   | { type: "CLEAR_ERROR" }
   | { type: "CLEAR_SUCCESS" };
-

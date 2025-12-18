@@ -258,4 +258,3 @@ export interface GenerationSessionsListResponseDTO {
 export interface UpdateGenerationSessionCommand {
   accepted_count: number;
 }
-

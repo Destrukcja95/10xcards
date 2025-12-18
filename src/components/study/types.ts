@@ -142,4 +142,3 @@ export function formatInterval(days: number): string {
   if (days < 60) return "za miesiąc";
   return `za ${Math.round(days / 30)} miesięcy`;
 }
-

@@ -54,75 +54,69 @@ export function useFlashcardsView() {
   // CREATE FLASHCARD
   // ========================================
 
-  const createFlashcard = useCallback(
-    async (data: { front: string; back: string }) => {
-      dispatch({ type: "SAVE_START" });
+  const createFlashcard = useCallback(async (data: { front: string; back: string }) => {
+    dispatch({ type: "SAVE_START" });
 
-      try {
-        const response = await fetch("/api/flashcards", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            flashcards: [{ ...data, source: "manual" as const }],
-          }),
-        });
+    try {
+      const response = await fetch("/api/flashcards", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          flashcards: [{ ...data, source: "manual" as const }],
+        }),
+      });
 
-        if (!response.ok) {
-          const errorData: ErrorDTO = await response.json();
-          dispatch({ type: "SAVE_ERROR", payload: errorData.error.message });
-          return false;
-        }
-
-        const result: CreateFlashcardsResponseDTO = await response.json();
-        dispatch({ type: "CREATE_SUCCESS", payload: result.data[0] });
-
-        // Refresh listy, aby zobaczyć nową fiszkę z poprawnym sortowaniem
-        return true;
-      } catch {
-        dispatch({
-          type: "SAVE_ERROR",
-          payload: "Nie udało się utworzyć fiszki. Spróbuj ponownie.",
-        });
+      if (!response.ok) {
+        const errorData: ErrorDTO = await response.json();
+        dispatch({ type: "SAVE_ERROR", payload: errorData.error.message });
         return false;
       }
-    },
-    []
-  );
+
+      const result: CreateFlashcardsResponseDTO = await response.json();
+      dispatch({ type: "CREATE_SUCCESS", payload: result.data[0] });
+
+      // Refresh listy, aby zobaczyć nową fiszkę z poprawnym sortowaniem
+      return true;
+    } catch {
+      dispatch({
+        type: "SAVE_ERROR",
+        payload: "Nie udało się utworzyć fiszki. Spróbuj ponownie.",
+      });
+      return false;
+    }
+  }, []);
 
   // ========================================
   // UPDATE FLASHCARD
   // ========================================
 
-  const updateFlashcard = useCallback(
-    async (id: string, data: { front: string; back: string }) => {
-      dispatch({ type: "SAVE_START" });
+  const updateFlashcard = useCallback(async (id: string, data: { front: string; back: string }) => {
+    dispatch({ type: "SAVE_START" });
 
-      try {
-        const response = await fetch(`/api/flashcards/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
+    try {
+      const response = await fetch(`/api/flashcards/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-        if (!response.ok) {
-          const errorData: ErrorDTO = await response.json();
-          dispatch({ type: "SAVE_ERROR", payload: errorData.error.message });
-          return false;
-        }
-
-        const updated: FlashcardDTO = await response.json();
-        dispatch({ type: "UPDATE_SUCCESS", payload: updated });
-        return true;
-      } catch {
-        dispatch({
-          type: "SAVE_ERROR",
-          payload: "Nie udało się zaktualizować fiszki. Spróbuj ponownie.",
-        });
+      if (!response.ok) {
+        const errorData: ErrorDTO = await response.json();
+        dispatch({ type: "SAVE_ERROR", payload: errorData.error.message });
         return false;
       }
-    },
-    []
-  );
+
+      const updated: FlashcardDTO = await response.json();
+      dispatch({ type: "UPDATE_SUCCESS", payload: updated });
+      return true;
+    } catch {
+      dispatch({
+        type: "SAVE_ERROR",
+        payload: "Nie udało się zaktualizować fiszki. Spróbuj ponownie.",
+      });
+      return false;
+    }
+  }, []);
 
   // ========================================
   // DELETE FLASHCARD
@@ -230,17 +224,11 @@ export function useFlashcardsView() {
   );
 
   const isEmpty = useMemo(
-    () =>
-      !state.isLoading &&
-      state.flashcards.length === 0 &&
-      state.pagination?.total === 0,
+    () => !state.isLoading && state.flashcards.length === 0 && state.pagination?.total === 0,
     [state.isLoading, state.flashcards.length, state.pagination?.total]
   );
 
-  const totalCount = useMemo(
-    () => state.pagination?.total ?? 0,
-    [state.pagination?.total]
-  );
+  const totalCount = useMemo(() => state.pagination?.total ?? 0, [state.pagination?.total]);
 
   // ========================================
   // RETURN
@@ -270,4 +258,3 @@ export function useFlashcardsView() {
     },
   };
 }
-

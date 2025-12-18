@@ -63,7 +63,7 @@ export function RegisterForm({
 
     // Poczekaj na zapisanie sesji do cookies
     await supabase.auth.getSession();
-    
+
     // Użytkownik zalogowany automatycznie
     onSuccess();
   };
@@ -156,4 +156,3 @@ export function RegisterForm({
     </form>
   );
 }
-

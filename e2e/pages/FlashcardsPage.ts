@@ -82,8 +82,12 @@ export class FlashcardsPage extends BasePage {
     await this.page.waitForLoadState("domcontentloaded");
     // Wait for either flashcard list or empty state
     await Promise.race([
-      this.flashcardList.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
-      this.emptyState.waitFor({ state: "visible", timeout: 10000 }).catch(() => {}),
+      this.flashcardList.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
+      this.emptyState.waitFor({ state: "visible", timeout: 10000 }).catch(() => {
+        /* intentionally empty - race condition handling */
+      }),
     ]);
   }
 
@@ -106,7 +110,7 @@ export class FlashcardsPage extends BasePage {
   }
 
   // Edit flashcard
-  async openEditDialog(index: number = 0): Promise<void> {
+  async openEditDialog(index = 0): Promise<void> {
     const editButton = this.flashcardCards.nth(index).getByRole("button", { name: /edytuj/i });
     await editButton.click();
     await this.formDialog.waitFor({ state: "visible" });
@@ -123,13 +127,13 @@ export class FlashcardsPage extends BasePage {
   }
 
   // Delete flashcard
-  async openDeleteDialog(index: number = 0): Promise<void> {
+  async openDeleteDialog(index = 0): Promise<void> {
     const deleteButton = this.flashcardCards.nth(index).getByRole("button", { name: /usuń/i });
     await deleteButton.click();
     await this.deleteDialog.waitFor({ state: "visible" });
   }
 
-  async deleteFlashcard(index: number = 0): Promise<void> {
+  async deleteFlashcard(index = 0): Promise<void> {
     await this.openDeleteDialog(index);
     await this.deleteConfirmButton.click();
     await this.deleteDialog.waitFor({ state: "hidden" });
@@ -177,9 +181,8 @@ export class FlashcardsPage extends BasePage {
 
   async getFlashcardContent(index: number): Promise<{ front: string; back: string }> {
     const card = this.flashcardCards.nth(index);
-    const front = await card.locator("[class*='front'], p").first().textContent() ?? "";
-    const back = await card.locator("[class*='back'], p").nth(1).textContent() ?? "";
+    const front = (await card.locator("[class*='front'], p").first().textContent()) ?? "";
+    const back = (await card.locator("[class*='back'], p").nth(1).textContent()) ?? "";
     return { front, back };
   }
 }
-

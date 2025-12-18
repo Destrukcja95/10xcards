@@ -129,4 +129,3 @@ export function StatsOverview({ stats, isLoading }: StatsOverviewProps) {
     </section>
   );
 }
-

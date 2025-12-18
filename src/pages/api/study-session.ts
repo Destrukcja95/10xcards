@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
-import { studySessionQuerySchema } from '../../lib/schemas/study-session.schema';
-import { StudySessionService } from '../../lib/services/study-session.service';
-import type { ErrorDTO } from '../../types';
+import { studySessionQuerySchema } from "../../lib/schemas/study-session.schema";
+import { StudySessionService } from "../../lib/services/study-session.service";
+import type { ErrorDTO } from "../../types";
 
 export const prerender = false;
 
@@ -27,13 +27,13 @@ export const GET: APIRoute = async ({ locals, url }) => {
   if (!user) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'UNAUTHORIZED',
-        message: 'Missing or invalid authentication token',
+        code: "UNAUTHORIZED",
+        message: "Missing or invalid authentication token",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -44,17 +44,17 @@ export const GET: APIRoute = async ({ locals, url }) => {
   if (!validationResult.success) {
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'VALIDATION_ERROR',
-        message: validationResult.error.errors[0]?.message || 'Invalid query parameters',
+        code: "VALIDATION_ERROR",
+        message: validationResult.error.errors[0]?.message || "Invalid query parameters",
         details: validationResult.error.errors.map((err) => ({
-          field: err.path.join('.'),
+          field: err.path.join("."),
           message: err.message,
         })),
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -64,21 +64,20 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[GET /api/study-session] Error:', error);
+    console.error("[GET /api/study-session] Error:", error);
 
     const errorResponse: ErrorDTO = {
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred',
+        code: "INTERNAL_ERROR",
+        message: "An unexpected error occurred",
       },
     };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 };
-

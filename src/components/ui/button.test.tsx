@@ -7,9 +7,7 @@ describe("Button", () => {
   describe("rendering", () => {
     it("renders button with text content", () => {
       render(<Button>Click me</Button>);
-      expect(
-        screen.getByRole("button", { name: /click me/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /click me/i })).toBeInTheDocument();
     });
 
     it("renders with default variant", () => {
@@ -136,4 +134,3 @@ describe("Button", () => {
     });
   });
 });
-

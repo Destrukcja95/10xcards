@@ -20,13 +20,7 @@ interface DeleteConfirmDialogProps {
 /**
  * Dialog potwierdzenia usunięcia fiszki z ostrzeżeniem o nieodwracalności
  */
-export function DeleteConfirmDialog({
-  isOpen,
-  flashcard,
-  onClose,
-  onConfirm,
-  isDeleting,
-}: DeleteConfirmDialogProps) {
+export function DeleteConfirmDialog({ isOpen, flashcard, onClose, onConfirm, isDeleting }: DeleteConfirmDialogProps) {
   const handleConfirm = async () => {
     await onConfirm();
   };
@@ -72,26 +66,16 @@ export function DeleteConfirmDialog({
         {/* Preview fiszki */}
         {previewText && (
           <div className="rounded-md border bg-muted/50 p-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">
-              Przód fiszki
-            </p>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">Przód fiszki</p>
             <p className="text-sm text-foreground">{previewText}</p>
           </div>
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            disabled={isDeleting}
-          >
+          <Button variant="outline" onClick={onClose} disabled={isDeleting}>
             Anuluj
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleConfirm}
-            disabled={isDeleting}
-          >
+          <Button variant="destructive" onClick={handleConfirm} disabled={isDeleting}>
             {isDeleting ? (
               <>
                 <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -106,4 +90,3 @@ export function DeleteConfirmDialog({
     </Dialog>
   );
 }
-

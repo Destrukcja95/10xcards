@@ -101,9 +101,11 @@ export class GeneratePage extends BasePage {
     await this.generateButton.click();
   }
 
-  async waitForGeneration(timeout: number = 60000): Promise<void> {
+  async waitForGeneration(timeout = 60000): Promise<void> {
     // Wait for loading to start
-    await this.loadingSpinner.waitFor({ state: "visible", timeout: 5000 }).catch(() => {});
+    await this.loadingSpinner.waitFor({ state: "visible", timeout: 5000 }).catch(() => {
+      /* intentionally empty - loading may already be visible */
+    });
     // Wait for loading to finish
     await this.loadingSpinner.waitFor({ state: "hidden", timeout });
   }
@@ -149,9 +151,11 @@ export class GeneratePage extends BasePage {
   async saveAcceptedFlashcards(): Promise<void> {
     await this.saveButton.click();
     // Wait for save to complete
-    await this.page.waitForResponse((response) =>
-      response.url().includes("/api/flashcards") && response.status() === 201
-    ).catch(() => {});
+    await this.page
+      .waitForResponse((response) => response.url().includes("/api/flashcards") && response.status() === 201)
+      .catch(() => {
+        /* intentionally empty - response may have already completed */
+      });
   }
 
   // State checks
@@ -196,4 +200,3 @@ export class GeneratePage extends BasePage {
     return rateLimitText?.includes("0") ?? false;
   }
 }
-

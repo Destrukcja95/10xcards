@@ -82,20 +82,19 @@ export function useAuthForm<T extends Record<string, unknown>>({
    * Handler zmiany wartości pola
    */
   const handleChange = useCallback(
-    (field: keyof T) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setFormData((prev) => ({ ...prev, [field]: value }));
+    (field: keyof T) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setFormData((prev) => ({ ...prev, [field]: value }));
 
-        // Jeśli pole było dotknięte i miało błąd, waliduj podczas pisania
-        if (touched[field] && errors[field]) {
-          const fieldError = validateField(field, value);
-          setErrors((prev) => ({
-            ...prev,
-            [field]: fieldError,
-          }));
-        }
-      },
+      // Jeśli pole było dotknięte i miało błąd, waliduj podczas pisania
+      if (touched[field] && errors[field]) {
+        const fieldError = validateField(field, value);
+        setErrors((prev) => ({
+          ...prev,
+          [field]: fieldError,
+        }));
+      }
+    },
     [touched, errors, validateField]
   );
 
@@ -178,4 +177,3 @@ export function useAuthForm<T extends Record<string, unknown>>({
     resetForm,
   };
 }
-

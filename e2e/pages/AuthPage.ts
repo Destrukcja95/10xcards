@@ -75,21 +75,13 @@ export class AuthPage extends BasePage {
     await this.loginButton.click();
   }
 
-  async loginAndWaitForRedirect(
-    email: string,
-    password: string,
-    expectedUrl: string = "/generate"
-  ): Promise<void> {
+  async loginAndWaitForRedirect(email: string, password: string, expectedUrl = "/generate"): Promise<void> {
     await this.login(email, password);
     await this.page.waitForURL(`**${expectedUrl}`);
   }
 
   // Register actions
-  async fillRegisterForm(
-    email: string,
-    password: string,
-    confirmPassword: string
-  ): Promise<void> {
+  async fillRegisterForm(email: string, password: string, confirmPassword: string): Promise<void> {
     await this.switchToRegister();
     await this.emailInput.fill(email);
     // Need to get password fields by placeholder due to multiple password fields
@@ -97,11 +89,7 @@ export class AuthPage extends BasePage {
     await this.page.getByPlaceholder(/powtórz hasło/i).fill(confirmPassword);
   }
 
-  async register(
-    email: string,
-    password: string,
-    confirmPassword?: string
-  ): Promise<void> {
+  async register(email: string, password: string, confirmPassword?: string): Promise<void> {
     await this.fillRegisterForm(email, password, confirmPassword ?? password);
     await this.registerButton.click();
   }
@@ -143,4 +131,3 @@ export class AuthPage extends BasePage {
     return this.registerButton.isVisible();
   }
 }
-

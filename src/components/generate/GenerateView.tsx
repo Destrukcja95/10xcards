@@ -30,8 +30,8 @@ export function GenerateView() {
       <div className="text-center">
         <h1 className="text-3xl font-bold text-foreground">Generuj fiszki z AI</h1>
         <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
-          Wklej tekst źródłowy, a sztuczna inteligencja wygeneruje dla Ciebie propozycje
-          fiszek edukacyjnych. Możesz je przeglądać, edytować i zapisywać.
+          Wklej tekst źródłowy, a sztuczna inteligencja wygeneruje dla Ciebie propozycje fiszek edukacyjnych. Możesz je
+          przeglądać, edytować i zapisywać.
         </p>
       </div>
 
@@ -42,12 +42,7 @@ export function GenerateView() {
           <AlertTitle>Błąd</AlertTitle>
           <AlertDescription className="flex items-center justify-between">
             <span>{state.error}</span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={actions.clearError}
-              className="ml-4 shrink-0"
-            >
+            <Button variant="outline" size="sm" onClick={actions.clearError} className="ml-4 shrink-0">
               Zamknij
             </Button>
           </AlertDescription>
@@ -59,9 +54,7 @@ export function GenerateView() {
         <Alert className="border-green-500 bg-green-50 dark:bg-green-950/20">
           <CheckCircleIcon className="text-green-600 dark:text-green-400" />
           <AlertTitle className="text-green-800 dark:text-green-200">Sukces</AlertTitle>
-          <AlertDescription className="text-green-700 dark:text-green-300">
-            {state.successMessage}
-          </AlertDescription>
+          <AlertDescription className="text-green-700 dark:text-green-300">{state.successMessage}</AlertDescription>
         </Alert>
       )}
 
@@ -81,9 +74,7 @@ export function GenerateView() {
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-foreground">
               Propozycje fiszek
-              <span className="ml-2 text-base font-normal text-muted-foreground">
-                ({state.proposals.length})
-              </span>
+              <span className="ml-2 text-base font-normal text-muted-foreground">({state.proposals.length})</span>
             </h2>
           </div>
 
@@ -107,22 +98,14 @@ export function GenerateView() {
           <div className="flex items-center justify-between rounded-lg border border-border bg-muted/30 p-4">
             <div className="text-sm text-muted-foreground space-x-4">
               <span>
-                <span className="font-medium text-green-600 dark:text-green-400">
-                  {computed.acceptedCount}
-                </span>{" "}
+                <span className="font-medium text-green-600 dark:text-green-400">{computed.acceptedCount}</span>{" "}
                 zaakceptowanych
               </span>
               <span>
-                <span className="font-medium text-muted-foreground">
-                  {computed.rejectedCount}
-                </span>{" "}
-                odrzuconych
+                <span className="font-medium text-muted-foreground">{computed.rejectedCount}</span> odrzuconych
               </span>
               <span>
-                <span className="font-medium text-foreground">
-                  {computed.pendingCount}
-                </span>{" "}
-                oczekujących
+                <span className="font-medium text-foreground">{computed.pendingCount}</span> oczekujących
               </span>
             </div>
 
@@ -141,9 +124,7 @@ export function GenerateView() {
           <div className="flex flex-col items-center justify-center space-y-4">
             <LoadingSpinner className="h-12 w-12 text-primary" />
             <div className="text-center">
-              <p className="text-lg font-medium text-foreground">
-                Generowanie fiszek...
-              </p>
+              <p className="text-lg font-medium text-foreground">Generowanie fiszek...</p>
               <p className="text-sm text-muted-foreground">
                 To może potrwać do 30 sekund w zależności od długości tekstu.
               </p>
@@ -159,13 +140,7 @@ export function GenerateView() {
 
 function AlertCircleIcon() {
   return (
-    <svg
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -177,13 +152,7 @@ function AlertCircleIcon() {
 
 function CheckCircleIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={`h-4 w-4 ${className}`}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
+    <svg className={`h-4 w-4 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -195,20 +164,8 @@ function CheckCircleIcon({ className }: { className?: string }) {
 
 function LoadingSpinner({ className }: { className?: string }) {
   return (
-    <svg
-      className={`animate-spin ${className}`}
-      fill="none"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
+    <svg className={`animate-spin ${className}`} fill="none" viewBox="0 0 24 24" aria-hidden="true">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path
         className="opacity-75"
         fill="currentColor"

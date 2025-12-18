@@ -70,11 +70,7 @@ export function DeleteAccountDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent
-        role="alertdialog"
-        aria-describedby={descriptionId}
-        className="sm:max-w-md"
-      >
+      <DialogContent role="alertdialog" aria-describedby={descriptionId} className="sm:max-w-md">
         {step === 1 ? (
           // Krok 1: Ostrzeżenie
           <>
@@ -123,12 +119,9 @@ export function DeleteAccountDialog({
           // Krok 2: Potwierdzenie
           <>
             <DialogHeader>
-              <DialogTitle className="text-destructive">
-                Potwierdź usunięcie konta
-              </DialogTitle>
+              <DialogTitle className="text-destructive">Potwierdź usunięcie konta</DialogTitle>
               <DialogDescription id={descriptionId}>
-                Aby potwierdzić usunięcie konta, wpisz{" "}
-                <strong className="font-mono">{DELETE_CONFIRMATION_TEXT}</strong>{" "}
+                Aby potwierdzić usunięcie konta, wpisz <strong className="font-mono">{DELETE_CONFIRMATION_TEXT}</strong>{" "}
                 poniżej.
               </DialogDescription>
             </DialogHeader>
@@ -146,6 +139,7 @@ export function DeleteAccountDialog({
                 aria-label={`Wpisz ${DELETE_CONFIRMATION_TEXT} aby potwierdzić`}
                 disabled={isDeleting}
                 autoComplete="off"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
               />
 
@@ -157,18 +151,10 @@ export function DeleteAccountDialog({
             </div>
 
             <DialogFooter className="flex-col gap-2 sm:flex-row">
-              <Button
-                variant="outline"
-                onClick={handleBack}
-                disabled={isDeleting}
-              >
+              <Button variant="outline" onClick={handleBack} disabled={isDeleting}>
                 Wstecz
               </Button>
-              <Button
-                variant="destructive"
-                onClick={handleConfirm}
-                disabled={!isConfirmValid || isDeleting}
-              >
+              <Button variant="destructive" onClick={handleConfirm} disabled={!isConfirmValid || isDeleting}>
                 {isDeleting ? (
                   <>
                     <svg
@@ -199,4 +185,3 @@ export function DeleteAccountDialog({
     </Dialog>
   );
 }
-

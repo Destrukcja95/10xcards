@@ -11,12 +11,7 @@ export { EmptyStudyState } from "./EmptyStudyState";
 export { StudySkeleton } from "./StudySkeleton";
 
 // Typy
-export type {
-  StudyViewState,
-  StudyViewAction,
-  RatingButtonConfig,
-  RatingButtonVariant,
-} from "./types";
+export type { StudyViewState, StudyViewAction, RatingButtonConfig, RatingButtonVariant } from "./types";
 
 export {
   STUDY_SESSION_LIMIT,
@@ -25,4 +20,3 @@ export {
   KEY_TO_RATING,
   formatInterval,
 } from "./types";
-

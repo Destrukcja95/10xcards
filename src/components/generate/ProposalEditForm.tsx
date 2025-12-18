@@ -21,12 +21,7 @@ interface FieldError {
 /**
  * ProposalEditForm - formularz inline do edycji propozycji fiszki
  */
-export function ProposalEditForm({
-  initialFront,
-  initialBack,
-  onSave,
-  onCancel,
-}: ProposalEditFormProps) {
+export function ProposalEditForm({ initialFront, initialBack, onSave, onCancel }: ProposalEditFormProps) {
   const [front, setFront] = useState(initialFront);
   const [back, setBack] = useState(initialBack);
   const [errors, setErrors] = useState<FieldError>({});
@@ -55,7 +50,7 @@ export function ProposalEditForm({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
+
     const validationErrors = validate();
     setErrors(validationErrors);
     setTouched({ front: true, back: true });
@@ -131,11 +126,8 @@ export function ProposalEditForm({
         <Button type="button" variant="outline" onClick={onCancel}>
           Anuluj
         </Button>
-        <Button type="submit">
-          Zapisz zmiany
-        </Button>
+        <Button type="submit">Zapisz zmiany</Button>
       </div>
     </form>
   );
 }
-

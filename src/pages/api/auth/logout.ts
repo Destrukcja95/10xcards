@@ -16,4 +16,3 @@ export const POST: APIRoute = async ({ locals, redirect }) => {
   // Zawsze przekieruj do strony głównej po wylogowaniu
   return redirect("/", 302);
 };
-

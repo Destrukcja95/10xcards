@@ -21,13 +21,7 @@ interface FieldErrors {
 /**
  * Formularz tworzenia/edycji fiszki z walidacją inline i licznikami znaków
  */
-export function FlashcardForm({
-  initialData,
-  onSubmit,
-  onCancel,
-  isSubmitting,
-  submitLabel,
-}: FlashcardFormProps) {
+export function FlashcardForm({ initialData, onSubmit, onCancel, isSubmitting, submitLabel }: FlashcardFormProps) {
   const [front, setFront] = useState(initialData?.front ?? "");
   const [back, setBack] = useState(initialData?.back ?? "");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -84,12 +78,7 @@ export function FlashcardForm({
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor={frontId}>Przód fiszki (pytanie)</Label>
-          <span
-            className={cn(
-              "text-xs tabular-nums",
-              isFrontOverLimit ? "text-destructive" : "text-muted-foreground"
-            )}
-          >
+          <span className={cn("text-xs tabular-nums", isFrontOverLimit ? "text-destructive" : "text-muted-foreground")}>
             {front.length}/{FLASHCARD_VALIDATION.FRONT_MAX_LENGTH}
           </span>
         </div>
@@ -115,12 +104,7 @@ export function FlashcardForm({
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor={backId}>Tył fiszki (odpowiedź)</Label>
-          <span
-            className={cn(
-              "text-xs tabular-nums",
-              isBackOverLimit ? "text-destructive" : "text-muted-foreground"
-            )}
-          >
+          <span className={cn("text-xs tabular-nums", isBackOverLimit ? "text-destructive" : "text-muted-foreground")}>
             {back.length}/{FLASHCARD_VALIDATION.BACK_MAX_LENGTH}
           </span>
         </div>
@@ -144,12 +128,7 @@ export function FlashcardForm({
 
       {/* Przyciski akcji */}
       <div className="flex justify-end gap-2 pt-2">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
+        <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
           Anuluj
         </Button>
         <Button type="submit" disabled={isSubmitting}>
@@ -166,4 +145,3 @@ export function FlashcardForm({
     </form>
   );
 }
-

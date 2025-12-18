@@ -15,12 +15,7 @@ interface GenerateFormProps {
 /**
  * GenerateForm - formularz do wprowadzania tekstu źródłowego i uruchamiania generowania
  */
-export function GenerateForm({
-  onSubmit,
-  isLoading,
-  isDisabled = false,
-  rateLimit,
-}: GenerateFormProps) {
+export function GenerateForm({ onSubmit, isLoading, isDisabled = false, rateLimit }: GenerateFormProps) {
   const [sourceText, setSourceText] = useState("");
 
   const currentLength = sourceText.length;
@@ -39,11 +34,7 @@ export function GenerateForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Informacja o limicie */}
-      <RateLimitInfo
-        remaining={rateLimit.remaining}
-        resetAt={rateLimit.resetAt}
-        isLimited={rateLimit.isLimited}
-      />
+      <RateLimitInfo remaining={rateLimit.remaining} resetAt={rateLimit.resetAt} isLimited={rateLimit.isLimited} />
 
       {/* Pole tekstowe */}
       <SourceTextArea
@@ -55,12 +46,7 @@ export function GenerateForm({
 
       {/* Przycisk generowania */}
       <div className="flex justify-end">
-        <Button
-          type="submit"
-          size="lg"
-          disabled={!canSubmit}
-          className="min-w-[200px]"
-        >
+        <Button type="submit" size="lg" disabled={!canSubmit} className="min-w-[200px]">
           {isLoading ? (
             <>
               <LoadingSpinner />
@@ -83,14 +69,7 @@ export function GenerateForm({
  */
 function SparklesIcon() {
   return (
-    <svg
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      aria-hidden="true"
-    >
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -105,20 +84,8 @@ function SparklesIcon() {
  */
 function LoadingSpinner() {
   return (
-    <svg
-      className="h-5 w-5 animate-spin"
-      fill="none"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
+    <svg className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path
         className="opacity-75"
         fill="currentColor"
@@ -127,4 +94,3 @@ function LoadingSpinner() {
     </svg>
   );
 }
-

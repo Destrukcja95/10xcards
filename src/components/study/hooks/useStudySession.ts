@@ -134,10 +134,7 @@ export function useStudySession() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignoruj jeśli fokus jest na input/textarea
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement
-      ) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
         return;
       }
 
@@ -168,15 +165,9 @@ export function useStudySession() {
     [state.flashcards, state.currentIndex]
   );
 
-  const isEmpty = useMemo(
-    () => !state.isLoading && state.totalDue === 0,
-    [state.isLoading, state.totalDue]
-  );
+  const isEmpty = useMemo(() => !state.isLoading && state.totalDue === 0, [state.isLoading, state.totalDue]);
 
-  const hasFlashcards = useMemo(
-    () => state.flashcards.length > 0,
-    [state.flashcards.length]
-  );
+  const hasFlashcards = useMemo(() => state.flashcards.length > 0, [state.flashcards.length]);
 
   // ========================================
   // RETURN
@@ -198,4 +189,3 @@ export function useStudySession() {
     },
   };
 }
-

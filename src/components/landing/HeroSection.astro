@@ -30,7 +30,9 @@ const isAuthenticated = !!user;
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 text-center">
       <!-- Badge -->
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur-sm">
+      <div
+        class="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur-sm"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -42,7 +44,9 @@ const isAuthenticated = !!user;
           class="size-4 text-primary"
           aria-hidden="true"
         >
-          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+          <path
+            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+          ></path>
         </svg>
         <span>Wspierane przez AI</span>
       </div>
@@ -64,38 +68,61 @@ const isAuthenticated = !!user;
 
       <!-- Podtytuł -->
       <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-        Przekształć dowolny tekst w gotowe fiszki edukacyjne w kilka sekund.
-        Ucz się efektywniej dzięki algorytmowi spaced repetition i osiągaj lepsze wyniki.
+        Przekształć dowolny tekst w gotowe fiszki edukacyjne w kilka sekund. Ucz się efektywniej dzięki algorytmowi
+        spaced repetition i osiągaj lepsze wyniki.
       </p>
 
       <!-- Przyciski CTA -->
       <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-6">
-        {isAuthenticated ? (
-          <>
+        {
+          isAuthenticated ? (
+            <>
+              <a
+                href="/generate"
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <span>Generuj fiszki</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="size-5"
+                  aria-hidden="true"
+                >
+                  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                </svg>
+              </a>
+              <a
+                href="/flashcards"
+                class="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-8 py-4 text-base font-semibold text-foreground shadow-sm transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <span>Moje fiszki</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="size-5"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </>
+          ) : (
             <a
-              href="/generate"
+              href="/auth"
               class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              <span>Generuj fiszki</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="size-5"
-                aria-hidden="true"
-              >
-                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-              </svg>
-            </a>
-            <a
-              href="/flashcards"
-              class="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-8 py-4 text-base font-semibold text-foreground shadow-sm transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <span>Moje fiszki</span>
+              <span>Zacznij za darmo</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -111,29 +138,8 @@ const isAuthenticated = !!user;
                 <path d="m12 5 7 7-7 7" />
               </svg>
             </a>
-          </>
-        ) : (
-          <a
-            href="/auth"
-            class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            <span>Zacznij za darmo</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="size-5"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
-        )}
+          )
+        }
       </div>
 
       <!-- Statystyki / Social proof -->
@@ -150,8 +156,8 @@ const isAuthenticated = !!user;
             class="size-5 text-primary"
             aria-hidden="true"
           >
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-            <path d="m9 12 2 2 4-4" />
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
           </svg>
           <span>Darmowe konto</span>
         </div>
@@ -167,8 +173,8 @@ const isAuthenticated = !!user;
             class="size-5 text-primary"
             aria-hidden="true"
           >
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-            <path d="m9 12 2 2 4-4" />
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
           </svg>
           <span>Bez karty kredytowej</span>
         </div>
@@ -184,8 +190,8 @@ const isAuthenticated = !!user;
             class="size-5 text-primary"
             aria-hidden="true"
           >
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-            <path d="m9 12 2 2 4-4" />
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
           </svg>
           <span>Gotowe w minutę</span>
         </div>
@@ -193,4 +199,3 @@ const isAuthenticated = !!user;
     </div>
   </div>
 </section>
-

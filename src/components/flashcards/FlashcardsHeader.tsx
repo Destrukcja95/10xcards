@@ -36,14 +36,9 @@ export function FlashcardsHeader({
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <FlashcardSortSelect
-          value={sortValue}
-          onChange={onSortChange}
-          disabled={isLoading}
-        />
+        <FlashcardSortSelect value={sortValue} onChange={onSortChange} disabled={isLoading} />
         <AddFlashcardButton onClick={onAddClick} disabled={isLoading} />
       </div>
     </header>
   );
 }
-

@@ -17,34 +17,13 @@ interface StatCardProps {
 /**
  * Pojedyncza karta statystyki z etykietą, wartością liczbową i opcjonalną ikoną.
  */
-export function StatCard({
-  label,
-  value,
-  icon,
-  variant = "default",
-  isLoading = false,
-}: StatCardProps) {
+export function StatCard({ label, value, icon, variant = "default", isLoading = false }: StatCardProps) {
   return (
-    <Card
-      className={
-        variant === "highlight"
-          ? "border-primary/50 bg-primary/5"
-          : undefined
-      }
-    >
+    <Card className={variant === "highlight" ? "border-primary/50 bg-primary/5" : undefined}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
-          {label}
-        </CardTitle>
+        <CardTitle className="text-sm font-medium text-muted-foreground">{label}</CardTitle>
         {icon && (
-          <div
-            className={
-              variant === "highlight"
-                ? "text-primary"
-                : "text-muted-foreground"
-            }
-            aria-hidden="true"
-          >
+          <div className={variant === "highlight" ? "text-primary" : "text-muted-foreground"} aria-hidden="true">
             {icon}
           </div>
         )}
@@ -53,11 +32,7 @@ export function StatCard({
         {isLoading ? (
           <Skeleton className="h-8 w-20" />
         ) : (
-          <div
-            className={`text-2xl font-bold tabular-nums ${
-              variant === "highlight" ? "text-primary" : ""
-            }`}
-          >
+          <div className={`text-2xl font-bold tabular-nums ${variant === "highlight" ? "text-primary" : ""}`}>
             {value}
           </div>
         )}
@@ -65,4 +40,3 @@ export function StatCard({
     </Card>
   );
 }
-

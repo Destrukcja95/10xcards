@@ -8,10 +8,7 @@ interface AddFlashcardButtonProps {
 /**
  * Przycisk dodawania nowej fiszki z ikoną plus
  */
-export function AddFlashcardButton({
-  onClick,
-  disabled = false,
-}: AddFlashcardButtonProps) {
+export function AddFlashcardButton({ onClick, disabled = false }: AddFlashcardButtonProps) {
   return (
     <Button onClick={onClick} disabled={disabled}>
       <svg
@@ -34,4 +31,3 @@ export function AddFlashcardButton({
     </Button>
   );
 }
-

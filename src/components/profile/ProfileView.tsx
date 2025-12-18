@@ -18,7 +18,7 @@ interface ProfileViewProps {
  * Zarządza stanem globalnym, koordynuje pobieranie danych i renderuje komponenty potomne.
  */
 export function ProfileView({ userEmail }: ProfileViewProps) {
-  const { state, actions, computed } = useProfileView();
+  const { state, actions } = useProfileView();
 
   // Automatycznie ukrywaj komunikat sukcesu po 5 sekundach
   useEffect(() => {
@@ -28,7 +28,7 @@ export function ProfileView({ userEmail }: ProfileViewProps) {
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [state.successMessage, actions.clearSuccess]);
+  }, [state.successMessage, actions]);
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
@@ -54,9 +54,7 @@ export function ProfileView({ userEmail }: ProfileViewProps) {
             <path d="m9 11 3 3L22 4" />
           </svg>
           <AlertTitle className="text-green-600">Sukces</AlertTitle>
-          <AlertDescription className="text-green-600/90">
-            {state.successMessage}
-          </AlertDescription>
+          <AlertDescription className="text-green-600/90">{state.successMessage}</AlertDescription>
         </Alert>
       )}
 
@@ -82,12 +80,7 @@ export function ProfileView({ userEmail }: ProfileViewProps) {
           <AlertTitle>Błąd ładowania statystyk</AlertTitle>
           <AlertDescription>
             <p>{state.statsError}</p>
-            <Button
-              onClick={actions.fetchStats}
-              variant="outline"
-              size="sm"
-              className="mt-2"
-            >
+            <Button onClick={actions.fetchStats} variant="outline" size="sm" className="mt-2">
               Spróbuj ponownie
             </Button>
           </AlertDescription>
@@ -119,12 +112,7 @@ export function ProfileView({ userEmail }: ProfileViewProps) {
           <AlertTitle>Błąd ładowania historii</AlertTitle>
           <AlertDescription>
             <p>{state.sessionsError}</p>
-            <Button
-              onClick={actions.fetchSessions}
-              variant="outline"
-              size="sm"
-              className="mt-2"
-            >
+            <Button onClick={actions.fetchSessions} variant="outline" size="sm" className="mt-2">
               Spróbuj ponownie
             </Button>
           </AlertDescription>
@@ -157,4 +145,3 @@ export function ProfileView({ userEmail }: ProfileViewProps) {
     </div>
   );
 }
-

@@ -34,11 +34,7 @@ export function RatingButtons({ onRate, isSubmitting }: RatingButtonsProps) {
   );
 
   return (
-    <div 
-      className="grid w-full max-w-md grid-cols-2 gap-3"
-      role="group"
-      aria-label="Oceń swoją odpowiedź"
-    >
+    <div className="grid w-full max-w-md grid-cols-2 gap-3" role="group" aria-label="Oceń swoją odpowiedź">
       {RATING_BUTTONS.map((button) => (
         <Button
           key={button.rating}
@@ -61,14 +57,7 @@ export function RatingButtons({ onRate, isSubmitting }: RatingButtonsProps) {
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path
                   className="opacity-75"
                   fill="currentColor"
@@ -89,4 +78,3 @@ export function RatingButtons({ onRate, isSubmitting }: RatingButtonsProps) {
     </div>
   );
 }
-

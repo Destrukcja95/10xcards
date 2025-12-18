@@ -68,11 +68,13 @@ setup("create test user and authenticate", async ({ page }) => {
         authenticated = true;
       } catch {
         // Sprawdź czy jest błąd logowania
-        const hasError = await page.getByText(/nieprawidłowy|błąd/i).isVisible().catch(() => false);
+        const hasError = await page
+          .getByText(/nieprawidłowy|błąd/i)
+          .isVisible()
+          .catch(() => false);
         if (hasError) {
           throw new Error(
-            `Login failed for ${testUser.email}. ` +
-            "Sprawdź czy użytkownik istnieje i ma poprawne hasło."
+            `Login failed for ${testUser.email}. ` + "Sprawdź czy użytkownik istnieje i ma poprawne hasło."
           );
         }
       }
@@ -121,11 +123,11 @@ setup("create test user and authenticate", async ({ page }) => {
     if (requiresVerification) {
       throw new Error(
         "Email verification is required by Supabase.\n" +
-        "Rozwiązania:\n" +
-        "1. Wyłącz weryfikację email w Supabase Dashboard > Authentication > Settings\n" +
-        "2. LUB ustaw zmienne środowiskowe z credentials istniejącego użytkownika:\n" +
-        "   export E2E_TEST_USER_EMAIL='twoj@email.com'\n" +
-        "   export E2E_TEST_USER_PASSWORD='TwojeHaslo123!'"
+          "Rozwiązania:\n" +
+          "1. Wyłącz weryfikację email w Supabase Dashboard > Authentication > Settings\n" +
+          "2. LUB ustaw zmienne środowiskowe z credentials istniejącego użytkownika:\n" +
+          "   export E2E_TEST_USER_EMAIL='twoj@email.com'\n" +
+          "   export E2E_TEST_USER_PASSWORD='TwojeHaslo123!'"
       );
     }
 
@@ -145,10 +147,11 @@ setup("create test user and authenticate", async ({ page }) => {
   }
 
   await expect(page).toHaveURL(/\/generate/);
-  console.log(`✓ Successfully authenticated as: ${testUser!.email}`);
+  // eslint-disable-next-line no-console
+  console.log(`✓ Successfully authenticated as: ${testUser.email}`);
 
   // Zapisz credentials do pliku
-  fs.writeFileSync(CREDENTIALS_FILE, JSON.stringify(testUser!, null, 2));
+  fs.writeFileSync(CREDENTIALS_FILE, JSON.stringify(testUser, null, 2));
 
   // Zapisz stan storage (cookies, localStorage)
   await page.context().storageState({ path: AUTH_FILE });

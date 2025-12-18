@@ -28,4 +28,3 @@ export function StudySkeleton() {
     </div>
   );
 }
-

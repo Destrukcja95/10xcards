@@ -18,21 +18,13 @@ interface GenerationHistoryProps {
  * Sekcja z tabelą historii generowania AI.
  * Zawiera nagłówek sekcji, tabelę z danymi i paginację.
  */
-export function GenerationHistory({
-  sessions,
-  pagination,
-  isLoading,
-  onPageChange,
-}: GenerationHistoryProps) {
+export function GenerationHistory({ sessions, pagination, isLoading, onPageChange }: GenerationHistoryProps) {
   // Sprawdź czy jest pusty stan (nie ładowanie i brak sesji)
   const isEmpty = !isLoading && sessions.length === 0;
 
   return (
     <section className="mt-10" aria-labelledby="generation-history-heading">
-      <h2
-        id="generation-history-heading"
-        className="mb-4 text-xl font-semibold"
-      >
+      <h2 id="generation-history-heading" className="mb-4 text-xl font-semibold">
         Historia generowania AI
       </h2>
 
@@ -43,15 +35,10 @@ export function GenerationHistory({
           <GenerationHistoryTable sessions={sessions} isLoading={isLoading} />
 
           {pagination && (
-            <GenerationHistoryPagination
-              pagination={pagination}
-              onPageChange={onPageChange}
-              isLoading={isLoading}
-            />
+            <GenerationHistoryPagination pagination={pagination} onPageChange={onPageChange} isLoading={isLoading} />
           )}
         </>
       )}
     </section>
   );
 }
-

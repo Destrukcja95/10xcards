@@ -32,10 +32,7 @@ export function StudyCard({ flashcard, isFlipped, onFlip, isDisabled = false }: 
   };
 
   return (
-    <div
-      className="perspective-1000 w-full max-w-md"
-      style={{ perspective: "1000px" }}
-    >
+    <div className="perspective-1000 w-full max-w-md" style={{ perspective: "1000px" }}>
       <div
         role="button"
         tabIndex={isFlipped ? -1 : 0}
@@ -62,9 +59,7 @@ export function StudyCard({ flashcard, isFlipped, onFlip, isDisabled = false }: 
         >
           <CardContent className="flex h-full w-full items-center justify-center p-0">
             <div id={frontId} className="text-center">
-              <p className="text-lg font-medium text-foreground leading-relaxed">
-                {flashcard.front}
-              </p>
+              <p className="text-lg font-medium text-foreground leading-relaxed">{flashcard.front}</p>
               {!isFlipped && (
                 <p className="mt-4 text-sm text-muted-foreground">
                   Kliknij lub naciśnij spację, aby zobaczyć odpowiedź
@@ -84,9 +79,7 @@ export function StudyCard({ flashcard, isFlipped, onFlip, isDisabled = false }: 
         >
           <CardContent className="flex h-full w-full items-center justify-center p-0">
             <div id={backId} className="text-center">
-              <p className="text-lg font-medium text-foreground leading-relaxed">
-                {flashcard.back}
-              </p>
+              <p className="text-lg font-medium text-foreground leading-relaxed">{flashcard.back}</p>
             </div>
           </CardContent>
         </Card>
@@ -94,4 +87,3 @@ export function StudyCard({ flashcard, isFlipped, onFlip, isDisabled = false }: 
     </div>
   );
 }
-

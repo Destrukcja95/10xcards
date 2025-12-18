@@ -18,10 +18,7 @@ export function FlashcardsView() {
   // Obsługa submitu formularza (create/edit)
   const handleFormSubmit = async (data: { front: string; back: string }) => {
     if (state.dialogState.mode === "edit" && state.dialogState.flashcard) {
-      const success = await actions.updateFlashcard(
-        state.dialogState.flashcard.id,
-        data
-      );
+      const success = await actions.updateFlashcard(state.dialogState.flashcard.id, data);
       if (success) {
         // Odśwież listę po edycji
         actions.fetchFlashcards();
@@ -38,9 +35,7 @@ export function FlashcardsView() {
   // Obsługa potwierdzenia usunięcia
   const handleDeleteConfirm = async () => {
     if (state.deleteDialogState.flashcard) {
-      const success = await actions.deleteFlashcard(
-        state.deleteDialogState.flashcard.id
-      );
+      const success = await actions.deleteFlashcard(state.deleteDialogState.flashcard.id);
       if (success) {
         // Odśwież listę po usunięciu - sprawdź czy trzeba cofnąć stronę
         const remainingOnPage = state.flashcards.length - 1;
@@ -78,11 +73,7 @@ export function FlashcardsView() {
           <AlertTitle>Błąd</AlertTitle>
           <AlertDescription className="flex items-center justify-between gap-4">
             <span>{state.error}</span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={actions.clearError}
-            >
+            <Button variant="outline" size="sm" onClick={actions.clearError}>
               Zamknij
             </Button>
           </AlertDescription>
@@ -167,4 +158,3 @@ export function FlashcardsView() {
     </div>
   );
 }
-

@@ -28,8 +28,7 @@ export function EmptyGenerationHistory() {
       {/* Tekst */}
       <h3 className="mb-1 text-lg font-semibold">Brak historii generowania</h3>
       <p className="mb-6 max-w-sm text-sm text-muted-foreground">
-        Nie masz jeszcze historii generowania. Wygeneruj pierwsze fiszki
-        używając AI!
+        Nie masz jeszcze historii generowania. Wygeneruj pierwsze fiszki używając AI!
       </p>
 
       {/* CTA */}
@@ -56,4 +55,3 @@ export function EmptyGenerationHistory() {
     </div>
   );
 }
-

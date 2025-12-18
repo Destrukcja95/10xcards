@@ -21,10 +21,7 @@ function AllProviders({ children }: ProvidersProps) {
 }
 
 // Custom render function that wraps components with providers
-function customRender(
-  ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
-) {
+function customRender(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) {
   return render(ui, { wrapper: AllProviders, ...options });
 }
 
@@ -41,4 +38,3 @@ export * from "@testing-library/react";
 
 // Override render with custom render
 export { customRender as render, setup };
-

@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export interface TextareaProps extends React.ComponentProps<"textarea"> {
   /** Enable auto-resize based on content */
@@ -12,7 +12,7 @@ function Textarea({ className, autoResize = false, ...props }: TextareaProps) {
 
   const handleInput = React.useCallback(() => {
     if (!autoResize || !textareaRef.current) return;
-    
+
     const textarea = textareaRef.current;
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
@@ -38,8 +38,7 @@ function Textarea({ className, autoResize = false, ...props }: TextareaProps) {
       onInput={handleInput}
       {...props}
     />
-  )
+  );
 }
 
-export { Textarea }
-
+export { Textarea };

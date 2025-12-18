@@ -1,9 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import type { GenerationSessionDTO } from "@/types";
-import {
-  GenerationHistoryRow,
-  GenerationHistoryCard,
-} from "./GenerationHistoryRow";
+import { GenerationHistoryRow, GenerationHistoryCard } from "./GenerationHistoryRow";
 
 interface GenerationHistoryTableProps {
   /** Lista sesji generowania */
@@ -71,10 +68,7 @@ function CardsSkeleton() {
  * Tabela historii sesji generowania.
  * Na desktop wyświetla standardową tabelę, na mobile zamienia na stack kart.
  */
-export function GenerationHistoryTable({
-  sessions,
-  isLoading,
-}: GenerationHistoryTableProps) {
+export function GenerationHistoryTable({ sessions, isLoading }: GenerationHistoryTableProps) {
   return (
     <>
       {/* Wersja desktop - tabela */}
@@ -83,28 +77,16 @@ export function GenerationHistoryTable({
           <caption className="sr-only">Historia sesji generowania AI</caption>
           <thead>
             <tr className="border-b bg-muted/50">
-              <th
-                scope="col"
-                className="p-4 text-left text-sm font-medium text-muted-foreground"
-              >
+              <th scope="col" className="p-4 text-left text-sm font-medium text-muted-foreground">
                 Data
               </th>
-              <th
-                scope="col"
-                className="p-4 text-center text-sm font-medium text-muted-foreground"
-              >
+              <th scope="col" className="p-4 text-center text-sm font-medium text-muted-foreground">
                 Wygenerowane
               </th>
-              <th
-                scope="col"
-                className="p-4 text-center text-sm font-medium text-muted-foreground"
-              >
+              <th scope="col" className="p-4 text-center text-sm font-medium text-muted-foreground">
                 Zaakceptowane
               </th>
-              <th
-                scope="col"
-                className="p-4 text-center text-sm font-medium text-muted-foreground"
-              >
+              <th scope="col" className="p-4 text-center text-sm font-medium text-muted-foreground">
                 Wskaźnik
               </th>
             </tr>
@@ -113,9 +95,7 @@ export function GenerationHistoryTable({
             {isLoading ? (
               <TableSkeleton />
             ) : (
-              sessions.map((session) => (
-                <GenerationHistoryRow key={session.id} session={session} />
-              ))
+              sessions.map((session) => <GenerationHistoryRow key={session.id} session={session} />)
             )}
           </tbody>
         </table>
@@ -136,4 +116,3 @@ export function GenerationHistoryTable({
     </>
   );
 }
-

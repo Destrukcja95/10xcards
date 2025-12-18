@@ -9,7 +9,7 @@ interface CharacterCounterProps {
 
 /**
  * CharacterCounter - wyświetla liczbę znaków i wizualny wskaźnik poprawności zakresu
- * 
+ *
  * - Kolor czerwony gdy < minLength
  * - Kolor zielony gdy minLength <= current <= maxLength
  * - Kolor czerwony gdy > maxLength
@@ -26,7 +26,7 @@ export function CharacterCounter({
   // Oblicz procent wypełnienia dla paska postępu
   // 0% gdy 0 znaków, 100% gdy osiągnięto maxLength
   const percentage = Math.min((currentLength / maxLength) * 100, 100);
-  
+
   // Procent dla minLength (wizualna granica)
   const minPercentage = (minLength / maxLength) * 100;
 
@@ -56,7 +56,7 @@ export function CharacterCounter({
           style={{ left: `${minPercentage}%` }}
           aria-hidden="true"
         />
-        
+
         {/* Wypełnienie paska */}
         <div
           className={cn(
@@ -88,4 +88,3 @@ export function CharacterCounter({
     </div>
   );
 }
-

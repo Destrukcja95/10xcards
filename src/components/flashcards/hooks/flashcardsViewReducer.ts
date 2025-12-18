@@ -21,10 +21,7 @@ export const initialState: FlashcardsViewState = {
 /**
  * Reducer zarządzający stanem widoku fiszek
  */
-export function flashcardsViewReducer(
-  state: FlashcardsViewState,
-  action: FlashcardsViewAction
-): FlashcardsViewState {
+export function flashcardsViewReducer(state: FlashcardsViewState, action: FlashcardsViewAction): FlashcardsViewState {
   switch (action.type) {
     // ========================================
     // FETCH ACTIONS
@@ -74,9 +71,7 @@ export function flashcardsViewReducer(
       return {
         ...state,
         isSaving: false,
-        flashcards: state.flashcards.map((fc) =>
-          fc.id === action.payload.id ? action.payload : fc
-        ),
+        flashcards: state.flashcards.map((fc) => (fc.id === action.payload.id ? action.payload : fc)),
         dialogState: { mode: null, flashcard: null },
         successMessage: "Fiszka została zaktualizowana",
       };
@@ -183,4 +178,3 @@ export function flashcardsViewReducer(
       return state;
   }
 }
-

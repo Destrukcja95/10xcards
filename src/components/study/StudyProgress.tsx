@@ -27,15 +27,11 @@ export function StudyProgress({ current, total, totalDue }: StudyProgressProps) 
         <span className="font-medium text-foreground">
           Fiszka {current}/{total}
         </span>
-        {remaining > 0 && (
-          <span className="text-muted-foreground">
-            Pozostało: {remaining} do powtórki
-          </span>
-        )}
+        {remaining > 0 && <span className="text-muted-foreground">Pozostało: {remaining} do powtórki</span>}
       </div>
 
       {/* Pasek postępu */}
-      <div 
+      <div
         className="h-2 w-full overflow-hidden rounded-full bg-secondary"
         role="progressbar"
         aria-valuenow={progressPercent}
@@ -51,4 +47,3 @@ export function StudyProgress({ current, total, totalDue }: StudyProgressProps) 
     </div>
   );
 }
-

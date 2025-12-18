@@ -32,7 +32,7 @@ export function LoginForm({ onSuccess, onError, isLoading: externalLoading }: Lo
     setAuthError(null);
 
     console.log("[LoginForm] Starting signInWithPassword...");
-    
+
     const { data: authData, error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
@@ -52,7 +52,7 @@ export function LoginForm({ onSuccess, onError, isLoading: externalLoading }: Lo
     const { data: sessionData } = await supabase.auth.getSession();
     console.log("[LoginForm] getSession result:", sessionData);
     console.log("[LoginForm] document.cookie:", document.cookie);
-    
+
     console.log("[LoginForm] Calling onSuccess...");
     onSuccess();
   };
@@ -124,4 +124,3 @@ export function LoginForm({ onSuccess, onError, isLoading: externalLoading }: Lo
     </form>
   );
 }
-

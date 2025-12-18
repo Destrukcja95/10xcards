@@ -1,10 +1,4 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SORT_OPTIONS, type SortOption, type SortOrder, type SortValue } from "./types";
 
 interface FlashcardSortSelectProps {
@@ -16,11 +10,7 @@ interface FlashcardSortSelectProps {
 /**
  * Dropdown do wyboru pola i kierunku sortowania listy fiszek
  */
-export function FlashcardSortSelect({
-  value,
-  onChange,
-  disabled = false,
-}: FlashcardSortSelectProps) {
+export function FlashcardSortSelect({ value, onChange, disabled = false }: FlashcardSortSelectProps) {
   const handleValueChange = (newValue: string) => {
     const option = SORT_OPTIONS.find((opt) => opt.value === newValue);
     if (option) {
@@ -30,10 +20,7 @@ export function FlashcardSortSelect({
 
   return (
     <Select value={value} onValueChange={handleValueChange} disabled={disabled}>
-      <SelectTrigger
-        className="w-[220px]"
-        aria-label="Sortuj fiszki według"
-      >
+      <SelectTrigger className="w-[220px]" aria-label="Sortuj fiszki według">
         <SelectValue placeholder="Wybierz sortowanie" />
       </SelectTrigger>
       <SelectContent>
@@ -46,4 +33,3 @@ export function FlashcardSortSelect({
     </Select>
   );
 }
-

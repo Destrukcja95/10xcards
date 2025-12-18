@@ -34,4 +34,3 @@ export function DeleteAccountButton({ onClick }: DeleteAccountButtonProps) {
     </Button>
   );
 }
-
